@@ -1,0 +1,35 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h4 class="mb-3">• Mathematics – Differential Equations</h4>
+<p class="text-muted">
+  Solve dy/dx = k y with initial condition y(0) = y₀, giving y(x) = y₀ e<sup>kx</sup>.
+</p>
+
+{% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
+{% if result %}<div class="alert alert-success" style="white-space: pre-line;">{{ result }}</div>{% endif %}
+
+<div class="card shadow-sm">
+  <div class="card-body">
+    <form method="post">
+      {% csrf_token %}
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label">k (constant)</label>
+          <input type="number" step="any" name="k" class="form-control" required>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Initial value y₀ = y(0)</label>
+          <input type="number" step="any" name="y0" class="form-control" required>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">x (point)</label>
+          <input type="number" step="any" name="x" class="form-control" required>
+        </div>
+      </div>
+
+      <button class="btn btn-primary btn-sm mt-3">Solve and Evaluate</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

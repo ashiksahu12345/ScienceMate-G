@@ -1,0 +1,88 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h4 class="mb-3">• Physics – Electric Potential & Capacitance</h4>
+<p class="text-muted">
+  Charge–voltage relation, parallel plate capacitor and energy stored.
+</p>
+
+{% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
+{% if result %}<div class="alert alert-success">{{ result }}</div>{% endif %}
+
+<div class="row g-3">
+
+  <!-- Q = C V -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Charge: Q = C V</div>
+      <div class="card-body">
+        <p class="small text-muted">C in farad, V in volt, Q in coulomb.</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="q_cv">
+          <div class="mb-2">
+            <label class="form-label">C (F)</label>
+            <input type="number" step="any" name="C" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">V (V)</label>
+            <input type="number" step="any" name="V" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate Q</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Parallel plate C -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Parallel Plate Capacitor</div>
+      <div class="card-body">
+        <p class="small text-muted">C = ε<sub>r</sub> ε₀ A / d</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="parallel_plate">
+          <div class="mb-2">
+            <label class="form-label">ε<sub>r</sub> (relative permittivity)</label>
+            <input type="number" step="any" name="rel_eps" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">A (plate area, m²)</label>
+            <input type="number" step="any" name="A" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">d (separation, m)</label>
+            <input type="number" step="any" name="d" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate C</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Energy U = ½ C V² -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Energy: U = ½ C V²</div>
+      <div class="card-body">
+        <p class="small text-muted">Energy stored in a charged capacitor.</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="energy">
+          <div class="mb-2">
+            <label class="form-label">C (F)</label>
+            <input type="number" step="any" name="C" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">V (V)</label>
+            <input type="number" step="any" name="V" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate U</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

@@ -9,14 +9,22 @@
             Choose a subject → pick a topic → use interactive formula tools 🔍
         </p>
     </div>
-    <div class="mt-3 mt-md-0">
-        <a href="{% url 'chatbot' %}" class="btn btn-primary btn-sm me-2">
-            <i class="bi bi-robot me-1"></i> Doubt Chatbot
-        </a>
+    <div class="d-flex align-items-center gap-3 mt-3">
+
+        
         <a href="{% url 'upload_question' %}" class="btn btn-outline-secondary btn-sm">
             <i class="bi bi-cloud-upload me-1"></i> Upload Question
         </a>
+        <a href="{% url 'chatbot' %}" class="btn btn-primary btn-sm me-2">
+            <i class="bi bi-robot me-1"></i> Doubt Chatbot
+        </a>
+        <a href="#" class="btn btn-animation-3d btn-pill btn-sm">
+            <i class="bi bi-camera-reels me-1"></i> problem → animation
+        </a>
+
+        
     </div>
+
 </div>
 
 <div class="section-divider"></div>
@@ -45,7 +53,7 @@
     <a href="?subject=chemistry"
        class="btn-subject chemistry{% if selected_subject == 'chemistry' %} btn-subject-active{% endif %}">
         <span class="subject-icon">
-            <i class="bi bi-beaker"></i>
+            <i class="bi bi-magnet"></i>
         </span>
         <span>Chemistry</span>
     </a>

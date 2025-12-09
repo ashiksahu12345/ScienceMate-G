@@ -1,0 +1,61 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h4 class="mb-3">• Physics – Laser Physics</h4>
+<p class="text-muted">
+  Photon energy and number of photons emitted by a laser.
+</p>
+
+{% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
+{% if result %}<div class="alert alert-success">{{ result }}</div>{% endif %}
+
+<div class="row g-3">
+
+  <!-- Photon energy -->
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Photon Energy</div>
+      <div class="card-body">
+        <p class="small text-muted">E = h c / λ</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="photon_energy">
+          <div class="mb-2">
+            <label class="form-label">λ (wavelength, m)</label>
+            <input type="number" step="any" name="lam" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate E</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Number of photons -->
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Number of Photons</div>
+      <div class="card-body">
+        <p class="small text-muted">N = (P t) / E using same λ.</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="num_photons">
+          <div class="mb-2">
+            <label class="form-label">λ (wavelength, m)</label>
+            <input type="number" step="any" name="lam" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">P (power, W)</label>
+            <input type="number" step="any" name="P" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">t (time, s)</label>
+            <input type="number" step="any" name="t" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate N</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

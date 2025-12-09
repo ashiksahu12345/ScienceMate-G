@@ -1,0 +1,69 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h4 class="mb-3">• Mathematics – 3D Geometry</h4>
+<p class="text-muted">
+  Distance of a point from origin and distance between two points in 3D.
+</p>
+
+{% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
+{% if result %}<div class="alert alert-success">{{ result }}</div>{% endif %}
+
+<div class="row g-3">
+
+  <!-- From origin -->
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Distance from Origin</div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="origin">
+
+          <div class="mb-2">
+            <label class="form-label">Point P(x, y, z)</label>
+            <div class="d-flex gap-2">
+              <input type="number" step="any" name="x1" class="form-control" placeholder="x" required>
+              <input type="number" step="any" name="y1" class="form-control" placeholder="y" required>
+              <input type="number" step="any" name="z1" class="form-control" placeholder="z" required>
+            </div>
+          </div>
+
+          <button class="btn btn-primary btn-sm mt-1">Calculate distance</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Between two points -->
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Distance Between Two Points</div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="points">
+
+          <div class="mb-2">
+            <label class="form-label">Point A(x₁, y₁, z₁)</label>
+            <div class="d-flex gap-2 mb-2">
+              <input type="number" step="any" name="x1" class="form-control" placeholder="x₁" required>
+              <input type="number" step="any" name="y1" class="form-control" placeholder="y₁" required>
+              <input type="number" step="any" name="z1" class="form-control" placeholder="z₁" required>
+            </div>
+            <label class="form-label">Point B(x₂, y₂, z₂)</label>
+            <div class="d-flex gap-2">
+              <input type="number" step="any" name="x2" class="form-control" placeholder="x₂" required>
+              <input type="number" step="any" name="y2" class="form-control" placeholder="y₂" required>
+              <input type="number" step="any" name="z2" class="form-control" placeholder="z₂" required>
+            </div>
+          </div>
+
+          <button class="btn btn-outline-primary btn-sm mt-1">Calculate distance</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,92 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h4 class="mb-3">• Physics – AC Power & Resonance</h4>
+<p class="text-muted">
+  Reactances, impedance and resonant frequency calculators.
+</p>
+
+{% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
+{% if result %}<div class="alert alert-success">{{ result }}</div>{% endif %}
+
+<div class="row g-3">
+
+  <!-- Reactances -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Reactances X<sub>L</sub> & X<sub>C</sub></div>
+      <div class="card-body">
+        <p class="small text-muted">X<sub>L</sub> = 2π f L, X<sub>C</sub> = 1/(2π f C)</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="reactances">
+          <div class="mb-2">
+            <label class="form-label">f (Hz)</label>
+            <input type="number" step="any" name="f" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">L (H)</label>
+            <input type="number" step="any" name="L" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">C (F)</label>
+            <input type="number" step="any" name="C" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate X<sub>L</sub>, X<sub>C</sub></button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Impedance -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Impedance of RLC</div>
+      <div class="card-body">
+        <p class="small text-muted">Z = √(R² + (X<sub>L</sub> − X<sub>C</sub>)²)</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="impedance">
+          <div class="mb-2">
+            <label class="form-label">R (Ω)</label>
+            <input type="number" step="any" name="R" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">X<sub>L</sub> (Ω)</label>
+            <input type="number" step="any" name="XL" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">X<sub>C</sub> (Ω)</label>
+            <input type="number" step="any" name="XC" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate Z</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Resonant freq -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Resonant Frequency</div>
+      <div class="card-body">
+        <p class="small text-muted">f₀ = 1 / (2π √(L C))</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="resonance">
+          <div class="mb-2">
+            <label class="form-label">L (H)</label>
+            <input type="number" step="any" name="L" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">C (F)</label>
+            <input type="number" step="any" name="C" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate f₀</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

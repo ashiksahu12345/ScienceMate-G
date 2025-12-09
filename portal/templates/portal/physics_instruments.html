@@ -1,0 +1,84 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h4 class="mb-3">• Physics – Instruments & Measurements</h4>
+<p class="text-muted">
+  Least count of vernier caliper, screw gauge and % error due to LC.
+</p>
+
+{% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
+{% if result %}<div class="alert alert-success">{{ result }}</div>{% endif %}
+
+<div class="row g-3">
+
+  <!-- Vernier LC -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Vernier Least Count</div>
+      <div class="card-body">
+        <p class="small text-muted">LC = 1 MSD − 1 VSD (simplified).</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="vernier_lc">
+          <div class="mb-2">
+            <label class="form-label">1 MSD (main scale division)</label>
+            <input type="number" step="any" name="msd" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">1 VSD (vernier scale division)</label>
+            <input type="number" step="any" name="vsd" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate LC</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Screw gauge LC -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Screw Gauge LC</div>
+      <div class="card-body">
+        <p class="small text-muted">LC = pitch / no. of divisions.</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="screw_lc">
+          <div class="mb-2">
+            <label class="form-label">Pitch (mm or cm)</label>
+            <input type="number" step="any" name="pitch" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Number of divisions</label>
+            <input type="number" step="any" name="divs" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate LC</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- % error from LC -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">% Error due to LC</div>
+      <div class="card-body">
+        <p class="small text-muted">≈ (LC / measured value) × 100</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="lc_error">
+          <div class="mb-2">
+            <label class="form-label">Least count (same unit)</label>
+            <input type="number" step="any" name="lc" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Measured value</label>
+            <input type="number" step="any" name="value" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate % error</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

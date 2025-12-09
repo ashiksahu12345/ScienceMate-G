@@ -1,0 +1,93 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h4 class="mb-3">• Mathematics – Vector Algebra</h4>
+<p class="text-muted">
+  Magnitude, dot product and cross product of 3D vectors.
+</p>
+
+{% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
+{% if result %}<div class="alert alert-success">{{ result }}</div>{% endif %}
+
+<div class="row g-3">
+
+  <!-- Magnitude -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Magnitude |a|</div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="mag">
+          <div class="mb-2">
+            <label class="form-label">Vector a (ax, ay, az)</label>
+            <div class="d-flex gap-2">
+              <input type="number" step="any" name="ax" class="form-control" placeholder="ax" required>
+              <input type="number" step="any" name="ay" class="form-control" placeholder="ay" required>
+              <input type="number" step="any" name="az" class="form-control" placeholder="az" required>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Find |a|</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dot product -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Dot Product a · b</div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="dot">
+          <div class="mb-2">
+            <label class="form-label">a (ax, ay, az)</label>
+            <div class="d-flex gap-2 mb-2">
+              <input type="number" step="any" name="ax" class="form-control" placeholder="ax" required>
+              <input type="number" step="any" name="ay" class="form-control" placeholder="ay" required>
+              <input type="number" step="any" name="az" class="form-control" placeholder="az" required>
+            </div>
+            <label class="form-label">b (bx, by, bz)</label>
+            <div class="d-flex gap-2">
+              <input type="number" step="any" name="bx" class="form-control" placeholder="bx" required>
+              <input type="number" step="any" name="by" class="form-control" placeholder="by" required>
+              <input type="number" step="any" name="bz" class="form-control" placeholder="bz" required>
+            </div>
+          </div>
+          <button class="btn btn-outline-primary btn-sm mt-1">Compute a · b</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cross product -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Cross Product a × b</div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="cross">
+          <div class="mb-2">
+            <label class="form-label">a (ax, ay, az)</label>
+            <div class="d-flex gap-2 mb-2">
+              <input type="number" step="any" name="ax" class="form-control" placeholder="ax" required>
+              <input type="number" step="any" name="ay" class="form-control" placeholder="ay" required>
+              <input type="number" step="any" name="az" class="form-control" placeholder="az" required>
+            </div>
+            <label class="form-label">b (bx, by, bz)</label>
+            <div class="d-flex gap-2">
+              <input type="number" step="any" name="bx" class="form-control" placeholder="bx" required>
+              <input type="number" step="any" name="by" class="form-control" placeholder="by" required>
+              <input type="number" step="any" name="bz" class="form-control" placeholder="bz" required>
+            </div>
+          </div>
+          <button class="btn btn-outline-primary btn-sm mt-1">Compute a × b</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

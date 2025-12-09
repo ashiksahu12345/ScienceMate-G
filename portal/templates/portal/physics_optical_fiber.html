@@ -1,0 +1,80 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h4 class="mb-3">• Physics – Optical Fiber & Waveguides</h4>
+<p class="text-muted">
+  Numerical aperture, acceptance angle and critical angle calculators.
+</p>
+
+{% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
+{% if result %}<div class="alert alert-success">{{ result }}</div>{% endif %}
+
+<div class="row g-3">
+
+  <!-- NA -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Numerical Aperture</div>
+      <div class="card-body">
+        <p class="small text-muted">NA = √(n₁² − n₂²)</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="na">
+          <div class="mb-2">
+            <label class="form-label">n₁ (core index)</label>
+            <input type="number" step="any" name="n1" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">n₂ (cladding index)</label>
+            <input type="number" step="any" name="n2" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate NA</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Acceptance angle -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Acceptance Angle</div>
+      <div class="card-body">
+        <p class="small text-muted">θₐ = sin⁻¹(NA)</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="accept_angle">
+          <div class="mb-2">
+            <label class="form-label">NA</label>
+            <input type="number" step="any" name="NA" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate θₐ</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Critical angle -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Critical Angle</div>
+      <div class="card-body">
+        <p class="small text-muted">sin c = n₂ / n₁</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="critical_angle">
+          <div class="mb-2">
+            <label class="form-label">n₁ (denser medium)</label>
+            <input type="number" step="any" name="n1" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">n₂ (rarer medium)</label>
+            <input type="number" step="any" name="n2" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate c</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

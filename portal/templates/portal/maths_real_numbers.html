@@ -1,69 +1,68 @@
-{% extends "portal/maths_topic_base.html" %}
+{% extends "portal/base.html" %}
 
-{% block page_title %}Real Numbers – Mathematics | Science Mate{% endblock %}
-{% block topic_title %}Real Numbers{% endblock %}
-{% block topic_intro %}
-Work with classification of numbers, HCF &amp; LCM, decimal representation.
-{% endblock %}
+{% block content %}
+<h4 class="mb-3">• Mathematics – Real Numbers</h4>
+<p class="text-muted">
+  HCF / LCM of two integers and prime number check.
+</p>
 
-{% block subtopics %}
-<ul>
-  <li>Natural, whole, integers, rational, irrational and real numbers</li>
-  <li>Prime numbers &amp; prime factorisation</li>
-  <li>Euclid’s division lemma, HCF and LCM</li>
-  <li>Terminating / non-terminating repeating decimals</li>
-  <li>Representation of real numbers on the number line</li>
-</ul>
-{% endblock %}
+{% if error %}
+  <div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+{% if result %}
+  <div class="alert alert-success">{{ result }}</div>
+{% endif %}
 
-{% block calc_cards %}
+<div class="row g-3">
+
   <!-- HCF & LCM -->
-  <div class="col">
-    <div class="card h-100 shadow-sm">
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">HCF &amp; LCM of Two Integers</div>
       <div class="card-body">
-        <h5 class="card-title">Calculator 1: HCF &amp; LCM (Two Numbers)</h5>
-        <p class="text-muted small">
-          Uses HCF(a, b) and LCM(a, b) = (a × b) / HCF(a, b).
-        </p>
         <form method="post">
           {% csrf_token %}
-          <input type="hidden" name="calc" value="hcf_lcm_two">
+          <input type="hidden" name="calc" value="hcf_lcm">
+
           <div class="mb-2">
-            <label class="form-label small">First number (a)</label>
-            <input type="number" name="a" class="form-control form-control-sm" step="1" required>
+            <label class="form-label">First integer (a)</label>
+            <input type="number" name="a" class="form-control" required>
           </div>
+
           <div class="mb-2">
-            <label class="form-label small">Second number (b)</label>
-            <input type="number" name="b" class="form-control form-control-sm" step="1" required>
+            <label class="form-label">Second integer (b)</label>
+            <input type="number" name="b" class="form-control" required>
           </div>
-          <button class="btn btn-sm btn-primary" type="submit">Calculate</button>
+
+          <button class="btn btn-primary btn-sm mt-1">
+            Calculate HCF &amp; LCM
+          </button>
         </form>
       </div>
     </div>
   </div>
 
-  <!-- Decimal type -->
-  <div class="col">
-    <div class="card h-100 shadow-sm">
+  <!-- Prime check -->
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Prime Number Check</div>
       <div class="card-body">
-        <h5 class="card-title">Calculator 2: Decimal Type of p/q</h5>
-        <p class="text-muted small">
-          In lowest form, if denominator has only prime factors 2 and 5 → terminating; otherwise non-terminating repeating.
-        </p>
         <form method="post">
           {% csrf_token %}
-          <input type="hidden" name="calc" value="decimal_type">
+          <input type="hidden" name="calc" value="prime">
+
           <div class="mb-2">
-            <label class="form-label small">Numerator p</label>
-            <input type="number" name="p" class="form-control form-control-sm" step="1" required>
+            <label class="form-label">Enter integer n</label>
+            <input type="number" name="n" class="form-control" required>
           </div>
-          <div class="mb-2">
-            <label class="form-label small">Denominator q (≠ 0)</label>
-            <input type="number" name="q" class="form-control form-control-sm" step="1" required>
-          </div>
-          <button class="btn btn-sm btn-primary" type="submit">Check</button>
+
+          <button class="btn btn-outline-primary btn-sm mt-1">
+            Check Prime
+          </button>
         </form>
       </div>
     </div>
   </div>
+
+</div>
 {% endblock %}

@@ -1,0 +1,91 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h4 class="mb-3">• Physics – Electromagnetic Induction (Detailed)</h4>
+<p class="text-muted">
+  Induced emf from flux change, rotating coil and inductor energy.
+</p>
+
+{% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
+{% if result %}<div class="alert alert-success">{{ result }}</div>{% endif %}
+
+<div class="row g-3">
+
+  <!-- ε = -dΦ/dt -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Basic EMF: ε = - dΦ/dt</div>
+      <div class="card-body">
+        <p class="small text-muted">Φ in Wb, t in second.</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="basic_emf">
+          <div class="mb-2">
+            <label class="form-label">ΔΦ (Wb)</label>
+            <input type="number" step="any" name="dphi" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Δt (s)</label>
+            <input type="number" step="any" name="dt" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate ε</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rotating coil -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Rotating Coil</div>
+      <div class="card-body">
+        <p class="small text-muted">ε<sub>max</sub> = N B A ω</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="rotating_coil">
+          <div class="mb-2">
+            <label class="form-label">N (turns)</label>
+            <input type="number" step="any" name="N" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">B (tesla)</label>
+            <input type="number" step="any" name="B" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">A (area, m²)</label>
+            <input type="number" step="any" name="A" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">ω (rad/s)</label>
+            <input type="number" step="any" name="w" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate ε<sub>max</sub></button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Inductor energy -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Inductor Energy: U = ½ L I²</div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="inductor_energy">
+          <div class="mb-2">
+            <label class="form-label">L (inductance, H)</label>
+            <input type="number" step="any" name="L" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">I (current, A)</label>
+            <input type="number" step="any" name="I" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate U</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h4 class="mb-3">• Mathematics – Matrices</h4>
+<p class="text-muted">
+  Perform simple operations on 2×2 matrices: addition and scalar multiplication.
+</p>
+
+{% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
+{% if result %}<div class="alert alert-success" style="white-space: pre-line;">{{ result }}</div>{% endif %}
+
+<div class="row g-3">
+
+  <!-- Addition A + B -->
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Addition of 2×2 Matrices (A + B)</div>
+      <div class="card-body">
+        <p class="small text-muted">Enter entries of A and B, result is C = A + B.</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="add_2x2">
+
+          <div class="mb-2">
+            <label class="form-label">Matrix A</label>
+            <div class="d-flex gap-2 mb-1">
+              <input type="number" step="any" name="a11" class="form-control" placeholder="a11" required>
+              <input type="number" step="any" name="a12" class="form-control" placeholder="a12" required>
+            </div>
+            <div class="d-flex gap-2">
+              <input type="number" step="any" name="a21" class="form-control" placeholder="a21" required>
+              <input type="number" step="any" name="a22" class="form-control" placeholder="a22" required>
+            </div>
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">Matrix B</label>
+            <div class="d-flex gap-2 mb-1">
+              <input type="number" step="any" name="b11" class="form-control" placeholder="b11" required>
+              <input type="number" step="any" name="b12" class="form-control" placeholder="b12" required>
+            </div>
+            <div class="d-flex gap-2">
+              <input type="number" step="any" name="b21" class="form-control" placeholder="b21" required>
+              <input type="number" step="any" name="b22" class="form-control" placeholder="b22" required>
+            </div>
+          </div>
+
+          <button class="btn btn-primary btn-sm mt-1">Compute A + B</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scalar multiplication -->
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Scalar Multiplication kA</div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="scalar_2x2">
+
+          <div class="mb-2">
+            <label class="form-label">Scalar k</label>
+            <input type="number" step="any" name="k" class="form-control" required>
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">Matrix A</label>
+            <div class="d-flex gap-2 mb-1">
+              <input type="number" step="any" name="a11" class="form-control" placeholder="a11" required>
+              <input type="number" step="any" name="a12" class="form-control" placeholder="a12" required>
+            </div>
+            <div class="d-flex gap-2">
+              <input type="number" step="any" name="a21" class="form-control" placeholder="a21" required>
+              <input type="number" step="any" name="a22" class="form-control" placeholder="a22" required>
+            </div>
+          </div>
+
+          <button class="btn btn-outline-primary btn-sm mt-1">Compute kA</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

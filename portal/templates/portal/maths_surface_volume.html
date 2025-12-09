@@ -1,0 +1,88 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h4 class="mb-3">• Mathematics – Surface Area &amp; Volume</h4>
+<p class="text-muted">
+  TSA/CSA and volume for cuboid, cylinder and cone.
+</p>
+
+{% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
+{% if result %}<div class="alert alert-success">{{ result }}</div>{% endif %}
+
+<div class="row g-3">
+
+  <!-- CUBOID -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Cuboid</div>
+      <div class="card-body">
+        <p class="small text-muted">Total surface area and volume.</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="shape" value="cuboid">
+          <div class="mb-2">
+            <label class="form-label">Length l</label>
+            <input type="number" step="any" name="l" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Breadth b</label>
+            <input type="number" step="any" name="b" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Height h</label>
+            <input type="number" step="any" name="h" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- CYLINDER -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Right Circular Cylinder</div>
+      <div class="card-body">
+        <p class="small text-muted">CSA, TSA and volume.</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="shape" value="cylinder">
+          <div class="mb-2">
+            <label class="form-label">Radius r</label>
+            <input type="number" step="any" name="r" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Height h</label>
+            <input type="number" step="any" name="h" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONE -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Right Circular Cone</div>
+      <div class="card-body">
+        <p class="small text-muted">CSA, TSA and volume.</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="shape" value="cone">
+          <div class="mb-2">
+            <label class="form-label">Radius r</label>
+            <input type="number" step="any" name="r" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Height h</label>
+            <input type="number" step="any" name="h" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

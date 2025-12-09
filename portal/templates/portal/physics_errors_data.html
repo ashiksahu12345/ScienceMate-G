@@ -1,0 +1,76 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h4 class="mb-3">• Physics – Error & Data Analysis</h4>
+<p class="text-muted">
+  Mean, percentage error and standard deviation of measurements.
+</p>
+
+{% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
+{% if result %}<div class="alert alert-success">{{ result }}</div>{% endif %}
+
+<div class="row g-3">
+
+  <!-- Mean -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Mean of Readings</div>
+      <div class="card-body">
+        <p class="small text-muted">Enter comma separated values.</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="mean">
+          <div class="mb-2">
+            <label class="form-label">Values</label>
+            <input type="text" name="values" class="form-control" placeholder="1.2, 1.3, 1.4" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate Mean</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Single reading error -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Single Reading Error</div>
+      <div class="card-body">
+        <p class="small text-muted">Absolute and percentage error.</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="single_error">
+          <div class="mb-2">
+            <label class="form-label">True value</label>
+            <input type="number" step="any" name="true" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Measured value</label>
+            <input type="number" step="any" name="meas" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate Error</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Standard deviation -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Standard Deviation</div>
+      <div class="card-body">
+        <p class="small text-muted">σ of repeated measurements.</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="stddev">
+          <div class="mb-2">
+            <label class="form-label">Values</label>
+            <input type="text" name="values" class="form-control" placeholder="1.2, 1.3, 1.4" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate σ</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

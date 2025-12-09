@@ -1,0 +1,83 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h4 class="mb-3">• Physics – Nuclear Physics & Radioactivity</h4>
+<p class="text-muted">
+  Radioactive decay, activity and decay constant calculators.
+</p>
+
+{% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
+{% if result %}<div class="alert alert-success">{{ result }}</div>{% endif %}
+
+<div class="row g-3">
+
+  <!-- N(t) -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Decay Law</div>
+      <div class="card-body">
+        <p class="small text-muted">N = N₀ e<sup>-λt</sup></p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="decay">
+          <div class="mb-2">
+            <label class="form-label">N₀ (initial count)</label>
+            <input type="number" step="any" name="N0" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">λ (s⁻¹)</label>
+            <input type="number" step="any" name="lam" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">t (s)</label>
+            <input type="number" step="any" name="t" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate N(t)</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Activity -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Activity: A = λ N</div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="activity">
+          <div class="mb-2">
+            <label class="form-label">λ (s⁻¹)</label>
+            <input type="number" step="any" name="lam" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">N (number of nuclei)</label>
+            <input type="number" step="any" name="N" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate A</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- λ from T1/2 -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">λ from Half-life</div>
+      <div class="card-body">
+        <p class="small text-muted">λ = ln 2 / T₁/₂</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="lambda_from_t12">
+          <div class="mb-2">
+            <label class="form-label">T₁/₂ (s)</label>
+            <input type="number" step="any" name="t12" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate λ</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

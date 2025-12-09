@@ -1,24 +1,20 @@
 {% extends "portal/base.html" %}
 
 {% block content %}
-<h4 class="mb-3">• Mathematics – Polynomials</h4>
+<h4 class="mb-3">• Mathematics – Relations &amp; Functions</h4>
 <p class="text-muted">
-  Evaluate p(x) = ax² + bx + c and find sum/product of roots of a quadratic polynomial.
+  Evaluate a simple linear function f(x) = a x + b and see its inverse (if it exists).
 </p>
 
-{% if error %}
-  <div class="alert alert-danger">{{ error }}</div>
-{% endif %}
-{% if result %}
-  <div class="alert alert-success">{{ result }}</div>
-{% endif %}
+{% if error %}<div class="alert alert-danger" style="white-space: pre-line;">{{ error }}</div>{% endif %}
+{% if result %}<div class="alert alert-success" style="white-space: pre-line;">{{ result }}</div>{% endif %}
 
 <div class="row g-3">
 
-  <!-- Value at x -->
+  <!-- f(x) value -->
   <div class="col-md-6">
     <div class="card shadow-sm h-100">
-      <div class="card-header fw-bold">Evaluate p(x) = ax² + bx + c</div>
+      <div class="card-header fw-bold">Evaluate f(x) = ax + b</div>
       <div class="card-body">
         <form method="post">
           {% csrf_token %}
@@ -33,31 +29,27 @@
             <input type="number" step="any" name="b" class="form-control" required>
           </div>
           <div class="mb-2">
-            <label class="form-label">c</label>
-            <input type="number" step="any" name="c" class="form-control" required>
-          </div>
-          <div class="mb-2">
             <label class="form-label">x</label>
             <input type="number" step="any" name="x" class="form-control" required>
           </div>
 
-          <button class="btn btn-primary btn-sm mt-1">Calculate p(x)</button>
+          <button class="btn btn-primary btn-sm mt-1">Calculate f(x)</button>
         </form>
       </div>
     </div>
   </div>
 
-  <!-- Sum & product of roots -->
+  <!-- Inverse -->
   <div class="col-md-6">
     <div class="card shadow-sm h-100">
-      <div class="card-header fw-bold">Sum &amp; Product of Roots</div>
+      <div class="card-header fw-bold">Inverse of f(x) = ax + b</div>
       <div class="card-body">
         <p class="small text-muted mb-2">
-          For quadratic polynomial ax² + bx + c with a ≠ 0.
+          For one–one linear function (a ≠ 0), inverse is f⁻¹(y) = (y − b) / a.
         </p>
         <form method="post">
           {% csrf_token %}
-          <input type="hidden" name="calc" value="roots_info">
+          <input type="hidden" name="calc" value="inverse">
 
           <div class="mb-2">
             <label class="form-label">a</label>
@@ -67,14 +59,8 @@
             <label class="form-label">b</label>
             <input type="number" step="any" name="b" class="form-control" required>
           </div>
-          <div class="mb-2">
-            <label class="form-label">c</label>
-            <input type="number" step="any" name="c" class="form-control" required>
-          </div>
 
-          <button class="btn btn-outline-primary btn-sm mt-1">
-            Find α + β and αβ
-          </button>
+          <button class="btn btn-outline-primary btn-sm mt-1">Show Inverse</button>
         </form>
       </div>
     </div>

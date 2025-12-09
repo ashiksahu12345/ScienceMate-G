@@ -1,0 +1,43 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h4 class="mb-3">• Mathematics – Limits &amp; Continuity</h4>
+<p class="text-muted">
+  Approximate left and right values of f(x) = ax² + bx + c near x = x₀ using a small h.
+</p>
+
+{% if error %}<div class="alert alert-danger" style="white-space: pre-line;">{{ error }}</div>{% endif %}
+{% if result %}<div class="alert alert-success" style="white-space: pre-line;">{{ result }}</div>{% endif %}
+
+<div class="card shadow-sm">
+  <div class="card-body">
+    <form method="post">
+      {% csrf_token %}
+      <div class="row g-3">
+        <div class="col-md-3">
+          <label class="form-label">a</label>
+          <input type="number" step="any" name="a" class="form-control" required>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">b</label>
+          <input type="number" step="any" name="b" class="form-control" required>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">c</label>
+          <input type="number" step="any" name="c" class="form-control" required>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">x₀</label>
+          <input type="number" step="any" name="x0" class="form-control" required>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Small h &gt; 0</label>
+          <input type="number" step="any" name="h" class="form-control" required>
+        </div>
+      </div>
+
+      <button class="btn btn-primary btn-sm mt-3">Approximate limits</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

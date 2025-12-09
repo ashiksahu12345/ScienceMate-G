@@ -1,0 +1,48 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h4 class="mb-3">• Physics – Semiconductors & Electronics</h4>
+<p class="text-muted">
+  Shockley diode equation calculator for estimating diode current.
+</p>
+
+{% if error %}
+  <div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+{% if result %}
+  <div class="alert alert-success">{{ result }}</div>
+{% endif %}
+
+<div class="row g-3">
+
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">I = I₀ (e^{V / (ηVₜ)} − 1)</div>
+      <div class="card-body">
+        <p class="small text-muted">
+          Vₜ ≈ 0.026 V at room temperature (already used in calculation).
+        </p>
+        <form method="post">
+          {% csrf_token %}
+          <!-- calc value handled in view -->
+          <input type="hidden" name="calc" value="diode">
+          <div class="mb-2">
+            <label class="form-label">I₀ (saturation current, A)</label>
+            <input type="number" step="any" name="I0" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">V (applied voltage, V)</label>
+            <input type="number" step="any" name="V" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">η (ideality factor, 1–2)</label>
+            <input type="number" step="any" name="eta" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate I</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

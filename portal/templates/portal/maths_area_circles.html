@@ -1,0 +1,59 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h4 class="mb-3">• Mathematics – Areas Related to Circles</h4>
+<p class="text-muted">
+  Area of a sector and arc length for a given central angle.
+</p>
+
+{% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
+{% if result %}<div class="alert alert-success">{{ result }}</div>{% endif %}
+
+<div class="row g-3">
+
+  <!-- sector area -->
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Area of Sector</div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="sector_area">
+          <div class="mb-2">
+            <label class="form-label">Radius r</label>
+            <input type="number" step="any" name="r" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Central angle θ (°)</label>
+            <input type="number" step="any" name="theta" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate Area</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- arc length -->
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Arc Length</div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="arc_length">
+          <div class="mb-2">
+            <label class="form-label">Radius r</label>
+            <input type="number" step="any" name="r" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Central angle θ (°)</label>
+            <input type="number" step="any" name="theta" class="form-control" required>
+          </div>
+          <button class="btn btn-outline-primary btn-sm mt-1">Calculate Length</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

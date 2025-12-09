@@ -1,0 +1,92 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h4 class="mb-3">• Physics – Rotational Motion & Rigid Bodies</h4>
+<p class="text-muted">
+  Torque, angular acceleration, angular velocity and rotational kinetic energy calculators.
+</p>
+
+{% if error %}
+  <div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+{% if result %}
+  <div class="alert alert-success">{{ result }}</div>
+{% endif %}
+
+<div class="row g-3">
+
+  <!-- Torque: τ = I α -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Torque: τ = I α</div>
+      <div class="card-body">
+        <p class="small text-muted">I in kg·m², α in rad/s².</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="torque">
+          <div class="mb-2">
+            <label class="form-label">I (moment of inertia, kg·m²)</label>
+            <input type="number" step="any" name="I" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">α (angular acceleration, rad/s²)</label>
+            <input type="number" step="any" name="a" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate τ</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ω = ω0 + α t -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Angular Velocity: ω = ω₀ + α t</div>
+      <div class="card-body">
+        <p class="small text-muted">Compute final angular speed after time t.</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="omega">
+          <div class="mb-2">
+            <label class="form-label">ω₀ (initial, rad/s)</label>
+            <input type="number" step="any" name="w0" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">α (rad/s²)</label>
+            <input type="number" step="any" name="a" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">t (time, s)</label>
+            <input type="number" step="any" name="t" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate ω</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rotational KE -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Rotational KE: K = ½ I ω²</div>
+      <div class="card-body">
+        <p class="small text-muted">K in joule, I in kg·m², ω in rad/s.</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="ke_rot">
+          <div class="mb-2">
+            <label class="form-label">I (kg·m²)</label>
+            <input type="number" step="any" name="I" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">ω (rad/s)</label>
+            <input type="number" step="any" name="w" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate K</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

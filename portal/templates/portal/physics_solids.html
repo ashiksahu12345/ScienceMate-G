@@ -1,0 +1,88 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h4 class="mb-3">• Physics – Properties of Solids & Elasticity</h4>
+<p class="text-muted">
+  Stress, strain and Young’s modulus calculators for basic elasticity problems.
+</p>
+
+{% if error %}
+  <div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+{% if result %}
+  <div class="alert alert-success">{{ result }}</div>
+{% endif %}
+
+<div class="row g-3">
+
+  <!-- Stress -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Stress: σ = F / A</div>
+      <div class="card-body">
+        <p class="small text-muted">σ in N/m², F in newton, A in m².</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="stress">
+          <div class="mb-2">
+            <label class="form-label">F (force, N)</label>
+            <input type="number" step="any" name="F" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">A (area, m²)</label>
+            <input type="number" step="any" name="A" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate σ</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Strain -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Strain: ε = ΔL / L₀</div>
+      <div class="card-body">
+        <p class="small text-muted">Strain is dimensionless ratio.</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="strain">
+          <div class="mb-2">
+            <label class="form-label">ΔL (change in length, m)</label>
+            <input type="number" step="any" name="dL" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">L₀ (original length, m)</label>
+            <input type="number" step="any" name="L0" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate ε</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Young’s modulus -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Young’s Modulus: Y = σ / ε</div>
+      <div class="card-body">
+        <p class="small text-muted">Y in N/m² (Pa), use consistent σ and ε.</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="young">
+          <div class="mb-2">
+            <label class="form-label">σ (stress, N/m²)</label>
+            <input type="number" step="any" name="sigma" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">ε (strain)</label>
+            <input type="number" step="any" name="eps" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate Y</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

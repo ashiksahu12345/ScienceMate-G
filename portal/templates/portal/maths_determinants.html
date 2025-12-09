@@ -1,0 +1,93 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h4 class="mb-3">• Mathematics – Determinants</h4>
+<p class="text-muted">
+  Compute determinants of 2×2 and 3×3 matrices.
+</p>
+
+{% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
+{% if result %}<div class="alert alert-success">{{ result }}</div>{% endif %}
+
+<div class="row g-3">
+
+  <!-- 2x2 -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">2×2 Determinant</div>
+      <div class="card-body">
+        <p class="small text-muted">|a b; c d| = ad − bc</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="det2">
+
+          <div class="mb-2">
+            <label class="form-label">Matrix entries</label>
+            <div class="d-flex gap-2 mb-1">
+              <input type="number" step="any" name="a" class="form-control" placeholder="a" required>
+              <input type="number" step="any" name="b" class="form-control" placeholder="b" required>
+            </div>
+            <div class="d-flex gap-2">
+              <input type="number" step="any" name="c" class="form-control" placeholder="c" required>
+              <input type="number" step="any" name="d" class="form-control" placeholder="d" required>
+            </div>
+          </div>
+
+          <button class="btn btn-primary btn-sm mt-1">Find det</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3x3 -->
+  <div class="col-md-8">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">3×3 Determinant</div>
+      <div class="card-body">
+        <p class="small text-muted">
+          Using expansion: a(ei − fh) − b(di − fg) + c(dh − eg)
+        </p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="det3">
+
+          <div class="row g-2">
+            <div class="col-4">
+              <input type="number" step="any" name="a" class="form-control" placeholder="a" required>
+            </div>
+            <div class="col-4">
+              <input type="number" step="any" name="b" class="form-control" placeholder="b" required>
+            </div>
+            <div class="col-4">
+              <input type="number" step="any" name="c" class="form-control" placeholder="c" required>
+            </div>
+
+            <div class="col-4">
+              <input type="number" step="any" name="d" class="form-control" placeholder="d" required>
+            </div>
+            <div class="col-4">
+              <input type="number" step="any" name="e" class="form-control" placeholder="e" required>
+            </div>
+            <div class="col-4">
+              <input type="number" step="any" name="f" class="form-control" placeholder="f" required>
+            </div>
+
+            <div class="col-4">
+              <input type="number" step="any" name="g" class="form-control" placeholder="g" required>
+            </div>
+            <div class="col-4">
+              <input type="number" step="any" name="h" class="form-control" placeholder="h" required>
+            </div>
+            <div class="col-4">
+              <input type="number" step="any" name="i" class="form-control" placeholder="i" required>
+            </div>
+          </div>
+
+          <button class="btn btn-outline-primary btn-sm mt-3">Find det</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

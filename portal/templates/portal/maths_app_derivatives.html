@@ -1,29 +1,25 @@
 {% extends "portal/base.html" %}
 
 {% block content %}
-<h4 class="mb-3">• Mathematics – Polynomials</h4>
+<h4 class="mb-3">• Mathematics – Applications of Derivatives</h4>
 <p class="text-muted">
-  Evaluate p(x) = ax² + bx + c and find sum/product of roots of a quadratic polynomial.
+  Find slope of tangent and maximum/minimum of a quadratic function.
 </p>
 
-{% if error %}
-  <div class="alert alert-danger">{{ error }}</div>
-{% endif %}
-{% if result %}
-  <div class="alert alert-success">{{ result }}</div>
-{% endif %}
+{% if error %}<div class="alert alert-danger" style="white-space: pre-line;">{{ error }}</div>{% endif %}
+{% if result %}<div class="alert alert-success" style="white-space: pre-line;">{{ result }}</div>{% endif %}
 
 <div class="row g-3">
 
-  <!-- Value at x -->
+  <!-- Slope of tangent -->
   <div class="col-md-6">
     <div class="card shadow-sm h-100">
-      <div class="card-header fw-bold">Evaluate p(x) = ax² + bx + c</div>
+      <div class="card-header fw-bold">Slope of Tangent</div>
       <div class="card-body">
+        <p class="small text-muted">For y = ax² + bx + c at x = x₀.</p>
         <form method="post">
           {% csrf_token %}
-          <input type="hidden" name="calc" value="value">
-
+          <input type="hidden" name="calc" value="slope">
           <div class="mb-2">
             <label class="form-label">a</label>
             <input type="number" step="any" name="a" class="form-control" required>
@@ -37,28 +33,26 @@
             <input type="number" step="any" name="c" class="form-control" required>
           </div>
           <div class="mb-2">
-            <label class="form-label">x</label>
-            <input type="number" step="any" name="x" class="form-control" required>
+            <label class="form-label">x₀</label>
+            <input type="number" step="any" name="x0" class="form-control" required>
           </div>
-
-          <button class="btn btn-primary btn-sm mt-1">Calculate p(x)</button>
+          <button class="btn btn-primary btn-sm mt-1">Find slope</button>
         </form>
       </div>
     </div>
   </div>
 
-  <!-- Sum & product of roots -->
+  <!-- Max / Min -->
   <div class="col-md-6">
     <div class="card shadow-sm h-100">
-      <div class="card-header fw-bold">Sum &amp; Product of Roots</div>
+      <div class="card-header fw-bold">Maximum / Minimum (Quadratic)</div>
       <div class="card-body">
-        <p class="small text-muted mb-2">
-          For quadratic polynomial ax² + bx + c with a ≠ 0.
+        <p class="small text-muted">
+          Vertex of y = ax² + bx + c occurs at x = −b / 2a.
         </p>
         <form method="post">
           {% csrf_token %}
-          <input type="hidden" name="calc" value="roots_info">
-
+          <input type="hidden" name="calc" value="extremum">
           <div class="mb-2">
             <label class="form-label">a</label>
             <input type="number" step="any" name="a" class="form-control" required>
@@ -71,10 +65,7 @@
             <label class="form-label">c</label>
             <input type="number" step="any" name="c" class="form-control" required>
           </div>
-
-          <button class="btn btn-outline-primary btn-sm mt-1">
-            Find α + β and αβ
-          </button>
+          <button class="btn btn-outline-primary btn-sm mt-1">Find max/min</button>
         </form>
       </div>
     </div>

@@ -1,0 +1,89 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h4 class="mb-3">• Mathematics – Coordinate Geometry (Basics)</h4>
+<p class="text-muted">
+  Distance between two points and internal division (section formula).
+</p>
+
+{% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
+{% if result %}<div class="alert alert-success">{{ result }}</div>{% endif %}
+
+<div class="row g-3">
+
+  <!-- Distance formula -->
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Distance between Two Points</div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="distance">
+
+          <div class="mb-2">
+            <label class="form-label">Point A (x₁, y₁)</label>
+            <div class="d-flex gap-2">
+              <input type="number" step="any" name="x1" class="form-control" placeholder="x₁" required>
+              <input type="number" step="any" name="y1" class="form-control" placeholder="y₁" required>
+            </div>
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">Point B (x₂, y₂)</label>
+            <div class="d-flex gap-2">
+              <input type="number" step="any" name="x2" class="form-control" placeholder="x₂" required>
+              <input type="number" step="any" name="y2" class="form-control" placeholder="y₂" required>
+            </div>
+          </div>
+
+          <button class="btn btn-primary btn-sm mt-1">Calculate Distance</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section formula -->
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Internal Division (Section Formula)</div>
+      <div class="card-body">
+        <p class="small text-muted">Point dividing AB in ratio m:n (internally).</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="section">
+
+          <div class="mb-2">
+            <label class="form-label">Point A (x₁, y₁)</label>
+            <div class="d-flex gap-2">
+              <input type="number" step="any" name="x1" class="form-control" placeholder="x₁" required>
+              <input type="number" step="any" name="y1" class="form-control" placeholder="y₁" required>
+            </div>
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label">Point B (x₂, y₂)</label>
+            <div class="d-flex gap-2">
+              <input type="number" step="any" name="x2" class="form-control" placeholder="x₂" required>
+              <input type="number" step="any" name="y2" class="form-control" placeholder="y₂" required>
+            </div>
+          </div>
+
+          <div class="mb-2 d-flex gap-2">
+            <div>
+              <label class="form-label">m</label>
+              <input type="number" step="any" name="m" class="form-control" required>
+            </div>
+            <div>
+              <label class="form-label">n</label>
+              <input type="number" step="any" name="n" class="form-control" required>
+            </div>
+          </div>
+
+          <button class="btn btn-outline-primary btn-sm mt-1">Find Point</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

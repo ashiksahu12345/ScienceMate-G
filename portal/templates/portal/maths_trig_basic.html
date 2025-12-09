@@ -1,0 +1,61 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h4 class="mb-3">• Mathematics – Trigonometry (Basics)</h4>
+<p class="text-muted">
+  Calculate sin, cos, tan of an angle and convert between degrees and radians.
+</p>
+
+{% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
+{% if result %}<div class="alert alert-success">{{ result }}</div>{% endif %}
+
+<div class="row g-3">
+
+  <!-- sin, cos, tan -->
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">sin, cos, tan of an Angle</div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="values">
+          <div class="mb-2">
+            <label class="form-label">Angle (in degrees)</label>
+            <input type="number" step="any" name="angle" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate Values</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- conversions -->
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Degree ↔ Radian Conversion</div>
+      <div class="card-body">
+        <form method="post" class="mb-3">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="deg2rad">
+          <div class="mb-2">
+            <label class="form-label">Degrees → Radians</label>
+            <input type="number" step="any" name="deg" class="form-control" required>
+          </div>
+          <button class="btn btn-outline-primary btn-sm mt-1">Convert to Radians</button>
+        </form>
+
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="rad2deg">
+          <div class="mb-2">
+            <label class="form-label">Radians → Degrees</label>
+            <input type="number" step="any" name="rad" class="form-control" required>
+          </div>
+          <button class="btn btn-outline-primary btn-sm mt-1">Convert to Degrees</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

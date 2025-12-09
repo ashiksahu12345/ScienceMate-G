@@ -1,0 +1,39 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h4 class="mb-3">• Mathematics – Applications of Integrals</h4>
+<p class="text-muted">
+  Area under the straight line y = mx + c between x = x₁ and x = x₂.
+</p>
+
+{% if error %}<div class="alert alert-danger" style="white-space: pre-line;">{{ error }}</div>{% endif %}
+{% if result %}<div class="alert alert-success" style="white-space: pre-line;">{{ result }}</div>{% endif %}
+
+<div class="card shadow-sm">
+  <div class="card-body">
+    <form method="post">
+      {% csrf_token %}
+      <div class="row g-3">
+        <div class="col-md-3">
+          <label class="form-label">Slope m</label>
+          <input type="number" step="any" name="m" class="form-control" required>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Intercept c</label>
+          <input type="number" step="any" name="c0" class="form-control" required>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">x₁</label>
+          <input type="number" step="any" name="x1" class="form-control" required>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">x₂</label>
+          <input type="number" step="any" name="x2" class="form-control" required>
+        </div>
+      </div>
+
+      <button class="btn btn-primary btn-sm mt-3">Find Area</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h4 class="mb-3">• Physics – Magnetic Effects of Current</h4>
+<p class="text-muted">
+  Field near long wire, force on conductor and force on moving charge.
+</p>
+
+{% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
+{% if result %}<div class="alert alert-success">{{ result }}</div>{% endif %}
+
+<div class="row g-3">
+
+  <!-- B near long wire -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Long Straight Wire</div>
+      <div class="card-body">
+        <p class="small text-muted">B = μ₀ I / (2π r)</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="wire_B">
+          <div class="mb-2">
+            <label class="form-label">I (current, A)</label>
+            <input type="number" step="any" name="I" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">r (distance, m)</label>
+            <input type="number" step="any" name="r" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate B</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Force on conductor -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Force on Conductor</div>
+      <div class="card-body">
+        <p class="small text-muted">F = B I L sinθ</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="force_wire">
+          <div class="mb-2">
+            <label class="form-label">B (T)</label>
+            <input type="number" step="any" name="B" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">I (A)</label>
+            <input type="number" step="any" name="I" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">L (length, m)</label>
+            <input type="number" step="any" name="L" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">θ (angle, degree)</label>
+            <input type="number" step="any" name="theta" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate F</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Force on charge -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Force on Moving Charge</div>
+      <div class="card-body">
+        <p class="small text-muted">F = q v B sinθ</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="force_charge">
+          <div class="mb-2">
+            <label class="form-label">q (charge, C)</label>
+            <input type="number" step="any" name="q" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">v (speed, m/s)</label>
+            <input type="number" step="any" name="v" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">B (T)</label>
+            <inp

@@ -1,0 +1,44 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h4 class="mb-3">• Physics – Communication Systems</h4>
+<p class="text-muted">
+  Amplitude modulation (AM) modulation index calculator using the envelope method.
+</p>
+
+{% if error %}
+  <div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+{% if result %}
+  <div class="alert alert-success">{{ result }}</div>
+{% endif %}
+
+<div class="row g-3">
+
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">
+        Modulation Index: m = (Amax − Amin) / (Amax + Amin)
+      </div>
+      <div class="card-body">
+        <p class="small text-muted">
+          Amax, Amin from the AM envelope. For proper AM, 0 ≤ m ≤ 1.
+        </p>
+        <form method="post">
+          {% csrf_token %}
+          <div class="mb-2">
+            <label class="form-label">Amax (maximum envelope amplitude)</label>
+            <input type="number" step="any" name="Amax" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Amin (minimum envelope amplitude)</label>
+            <input type="number" step="any" name="Amin" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate m</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

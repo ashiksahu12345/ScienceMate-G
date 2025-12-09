@@ -1,0 +1,56 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h4 class="mb-3">• Mathematics – Circles & Tangents</h4>
+<p class="text-muted">
+  Circumference/area of a circle and length of tangent from an external point.
+</p>
+
+{% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
+{% if result %}<div class="alert alert-success">{{ result }}</div>{% endif %}
+
+<div class="row g-3">
+
+  <!-- circle measures -->
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Circle – Circumference &amp; Area</div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="circle">
+          <div class="mb-2">
+            <label class="form-label">Radius r</label>
+            <input type="number" step="any" name="r" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- tangent length -->
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Length of Tangent</div>
+      <div class="card-body">
+        <p class="small text-muted">From a point at distance d from centre (d &gt; r).</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="tangent">
+          <div class="mb-2">
+            <label class="form-label">Distance from centre d</label>
+            <input type="number" step="any" name="d" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Radius r</label>
+            <input type="number" step="any" name="r" class="form-control" required>
+          </div>
+          <button class="btn btn-outline-primary btn-sm mt-1">Calculate Tangent Length</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h4 class="mb-3">• Mathematics – Trigonometry (Applications)</h4>
+<p class="text-muted">
+  Simple height and distance problems using tan θ.
+</p>
+
+{% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
+{% if result %}<div class="alert alert-success">{{ result }}</div>{% endif %}
+
+<div class="row g-3">
+
+  <!-- height from distance -->
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Find Height from Distance</div>
+      <div class="card-body">
+        <p class="small text-muted">h = d · tan θ</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="height_from_distance">
+          <div class="mb-2">
+            <label class="form-label">Horizontal distance d</label>
+            <input type="number" step="any" name="d" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Angle of elevation θ (°)</label>
+            <input type="number" step="any" name="angle" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate Height</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- distance from height -->
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Find Distance from Height</div>
+      <div class="card-body">
+        <p class="small text-muted">d = h / tan θ</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="distance_from_height">
+          <div class="mb-2">
+            <label class="form-label">Height h</label>
+            <input type="number" step="any" name="h" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Angle of elevation θ (°)</label>
+            <input type="number" step="any" name="angle" class="form-control" required>
+          </div>
+          <button class="btn btn-outline-primary btn-sm mt-1">Calculate Distance</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
