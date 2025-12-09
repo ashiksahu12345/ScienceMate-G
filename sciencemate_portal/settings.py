@@ -5,68 +5,72 @@ Django settings for sciencemate_portal project.
 from pathlib import Path
 import os
 
-# Build paths inside the project
+# ---------------- Base Paths ----------------
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-123456replace-this-when-production'
-DEBUG = True
-ALLOWED_HOSTS = []
+# ---------------- Security ------------------
+SECRET_KEY = "django-insecure-123456replace-this-when-production"
 
-# Applications
+DEBUG = True   # Render पर बाद में False भी कर सकते हो
+ALLOWED_HOSTS = ["*"]   # अभी के लिए सब allow
+
+# ---------------- Installed Apps ------------
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
 
-    # Our main app
-    'portal',
+    # main app
+    "portal",
 ]
 
+# ---------------- Middleware ----------------
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",       # static files for Render
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = 'sciencemate_portal.urls'
+# ---------------- URLs / WSGI ---------------
+ROOT_URLCONF = "sciencemate_portal.urls"
+WSGI_APPLICATION = "sciencemate_portal.wsgi.application"
 
-# Templates
+# ---------------- Templates -----------------
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            BASE_DIR / "templates",   # Custom global templates folder
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [
+            BASE_DIR / "templates",   # global templates folder
         ],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'sciencemate_portal.wsgi.application'
-
-# Database (SQLite)
+# ---------------- Database ------------------
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
 
-# Password Validation
+# -------- Password Validation ---------------
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
@@ -74,40 +78,30 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
-# Language & Timezone
-LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'Asia/Kolkata'
+# --------- i18n / Timezone ------------------
+LANGUAGE_CODE = "en-us"
+TIME_ZONE = "Asia/Kolkata"
 USE_I18N = True
 USE_TZ = True
 
-# Static Files
+# ---------------- Static Files --------------
 STATIC_URL = "/static/"
 
+# यहाँ वो folder दो जहाँ तुम्हारे original CSS/JS रखे हैं
+# आपके project में screenshot से "static_portal" दिख रहा था
 STATICFILES_DIRS = [
-    BASE_DIR / "static",       # Local static folder (for development mode)
+    BASE_DIR / "static_portal",      # e.g. static_portal/css/style.css
 ]
 
-STATIC_ROOT = BASE_DIR / "staticfiles"   # Where collectstatic stores files in production
+# collectstatic के बाद Render यहीं से serve करेगा
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
+# Whitenoise storage (compressed + hashed filenames)
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+# ---------------- Media Files ---------------
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
-MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
-
-ALLOWED_HOSTS = ['*']
-
-STATIC_ROOT = BASE_DIR / "staticfiles"
-STATIC_URL = "/static/"
-
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+# ------------- Default Primary Key ----------
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
