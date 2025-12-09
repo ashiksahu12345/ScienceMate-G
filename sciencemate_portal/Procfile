@@ -1,0 +1,1 @@
+web: gunicorn sciencemate_portal.wsgi
