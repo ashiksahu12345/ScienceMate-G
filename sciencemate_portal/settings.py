@@ -90,7 +90,7 @@ STATIC_URL = "/static/"
 # यहाँ वो folder दो जहाँ तुम्हारे original CSS/JS रखे हैं
 # आपके project में screenshot से "static_portal" दिख रहा था
 STATICFILES_DIRS = [
-    BASE_DIR / "static_portal",      # e.g. static_portal/css/style.css
+    BASE_DIR / "static",
 ]
 
 # collectstatic के बाद Render यहीं से serve करेगा
