@@ -1,0 +1,80 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h4 class="mb-3">• Physics – Waves & Sound</h4>
+<p class="text-muted">
+  Basic wave relations and approximate speed of sound in air.
+</p>
+
+{% if error %}
+  <div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+{% if result %}
+  <div class="alert alert-success">{{ result }}</div>
+{% endif %}
+
+<div class="row g-3">
+
+  <!-- v = f λ -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Wave speed: v = f λ</div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="v_fl">
+          <div class="mb-2">
+            <label class="form-label">f (Hz)</label>
+            <input type="number" step="any" name="f" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">λ (m)</label>
+            <input type="number" step="any" name="lam" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate v</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- T = 1 / f -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Time period: T = 1 / f</div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="t_from_f">
+          <div class="mb-2">
+            <label class="form-label">f (Hz)</label>
+            <input type="number" step="any" name="f" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate T</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- v ≈ 331 + 0.6 T -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Sound speed: v ≈ 331 + 0.6 T</div>
+      <div class="card-body">
+        <p class="small text-muted">T in °C (valid for normal air conditions).</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="sound_speed">
+          <div class="mb-2">
+            <label class="form-label">Temperature T (°C)</label>
+            <input type="number" step="any" name="temp" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">
+            Calculate v
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

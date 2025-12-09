@@ -1,0 +1,76 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h4 class="mb-3">• Physics – Electromagnetic Waves</h4>
+<p class="text-muted">
+  Frequency, wavelength and photon energy for electromagnetic radiation.
+</p>
+
+{% if error %}
+  <div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+{% if result %}
+  <div class="alert alert-success">{{ result }}</div>
+{% endif %}
+
+<div class="row g-3">
+
+  <!-- f from λ -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">f = c / λ</div>
+      <div class="card-body">
+        <p class="small text-muted">c ≈ 3×10⁸ m/s, λ in m.</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="freq_from_lambda">
+          <div class="mb-2">
+            <label class="form-label">λ (m)</label>
+            <input type="number" step="any" name="lam" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate f</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- λ from f -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">λ = c / f</div>
+      <div class="card-body">
+        <p class="small text-muted">f in Hz, c ≈ 3×10⁸ m/s.</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="lambda_from_freq">
+          <div class="mb-2">
+            <label class="form-label">f (Hz)</label>
+            <input type="number" step="any" name="f" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate λ</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Photon energy -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">E = h f</div>
+      <div class="card-body">
+        <p class="small text-muted">h ≈ 6.626×10⁻³⁴ J·s.</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="photon_energy">
+          <div class="mb-2">
+            <label class="form-label">f (Hz)</label>
+            <input type="number" step="any" name="f" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate E</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

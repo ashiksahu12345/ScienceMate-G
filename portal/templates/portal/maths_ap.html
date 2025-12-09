@@ -1,0 +1,71 @@
+{% extends "portal/maths_topic_base.html" %}
+
+{% block page_title %}Arithmetic Progressions – Mathematics | Science Mate{% endblock %}
+{% block topic_title %}Arithmetic Progressions (AP){% endblock %}
+{% block topic_intro %}
+Find nth term and sum of n terms of an arithmetic progression.
+{% endblock %}
+
+{% block subtopics %}
+<ul>
+  <li>AP definition and common difference d</li>
+  <li>nth term: aₙ = a + (n − 1)d</li>
+  <li>Sum of n terms: Sₙ = n/2[2a + (n − 1)d]</li>
+  <li>Finding number of terms from last term</li>
+</ul>
+{% endblock %}
+
+{% block calc_cards %}
+  <!-- nth term and sum -->
+  <div class="col">
+    <div class="card h-100 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">Calculator 1: aₙ &amp; Sₙ</h5>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="ap_term_sum">
+          <div class="mb-2">
+            <label class="form-label small">First term a</label>
+            <input name="a" type="number" step="any" class="form-control form-control-sm" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label small">Common difference d</label>
+            <input name="d" type="number" step="any" class="form-control form-control-sm" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label small">Number of terms n</label>
+            <input name="n" type="number" min="1" step="1" class="form-control form-control-sm" required>
+          </div>
+          <button class="btn btn-sm btn-primary" type="submit">Calculate</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- n from last term -->
+  <div class="col">
+    <div class="card h-100 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">Calculator 2: n from Last Term</h5>
+        <p class="text-muted small">l = a + (n − 1)d ⇒ n = (l − a)/d + 1</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="ap_n_from_last">
+          <div class="mb-2">
+            <label class="form-label small">First term a</label>
+            <input name="a" type="number" step="any" class="form-control form-control-sm" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label small">Common difference d</label>
+            <input name="d" type="number" step="any" class="form-control form-control-sm" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label small">Last term l</label>
+            <input name="l" type="number" step="any" class="form-control form-control-sm" required>
+          </div>
+          <button class="btn btn-sm btn-primary" type="submit">Find n</button>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

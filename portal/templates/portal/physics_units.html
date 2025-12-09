@@ -1,0 +1,215 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+
+<h3 class="section-title mb-2">Units, Dimensions & Errors</h3>
+<p class="text-muted mb-3">
+    Convert units, calculate percentage error and revise a few common dimensional formulas.
+</p>
+
+<div class="section-divider"></div>
+
+<div class="row g-3">
+
+    <!-- Unit Converter -->
+    <div class="col-lg-4">
+        <div class="card h-100">
+            <div class="card-header pb-1">
+                <small class="text-uppercase text-muted">Tool 1</small>
+                <h6 class="mb-0">Basic Unit Converter</h6>
+            </div>
+            <div class="card-body">
+                <div class="mb-2">
+                    <label class="form-label mb-1">Quantity</label>
+                    <select id="u_quantity" class="form-select form-select-sm">
+                        <option value="length">Length</option>
+                        <option value="mass">Mass</option>
+                        <option value="time">Time</option>
+                    </select>
+                </div>
+
+                <div class="mb-2">
+                    <label class="form-label mb-1">From unit</label>
+                    <select id="u_from" class="form-select form-select-sm"></select>
+                </div>
+
+                <div class="mb-2">
+                    <label class="form-label mb-1">To unit</label>
+                    <select id="u_to" class="form-select form-select-sm"></select>
+                </div>
+
+                <div class="mb-2">
+                    <label class="form-label mb-1">Value</label>
+                    <input type="number" step="any" id="u_value" class="form-control" placeholder="Enter value">
+                </div>
+
+                <button type="button" class="btn btn-primary btn-sm" onclick="convertUnit()">
+                    Convert
+                </button>
+
+                <div id="u_result" class="alert alert-success mt-2 d-none"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error & Percentage error -->
+    <div class="col-lg-4">
+        <div class="card h-100">
+            <div class="card-header pb-1">
+                <small class="text-uppercase text-muted">Tool 2</small>
+                <h6 class="mb-0">Absolute & Percentage Error</h6>
+            </div>
+            <div class="card-body">
+                <div class="mb-2">
+                    <label class="form-label mb-1">True / accepted value</label>
+                    <input type="number" step="any" id="true_value" class="form-control" placeholder="e.g. 9.81">
+                </div>
+                <div class="mb-2">
+                    <label class="form-label mb-1">Measured value</label>
+                    <input type="number" step="any" id="measured_value" class="form-control" placeholder="e.g. 9.6">
+                </div>
+                <button type="button" class="btn btn-primary btn-sm" onclick="calcError()">
+                    Calculate error
+                </button>
+
+                <div id="err_result" class="alert alert-success mt-2 d-none"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dimensional formulas quick table -->
+    <div class="col-lg-4">
+        <div class="card h-100">
+            <div class="card-header pb-1">
+                <small class="text-uppercase text-muted">Revision</small>
+                <h6 class="mb-0">Common Dimensional Formulae</h6>
+            </div>
+            <div class="card-body">
+                <table class="table table-sm table-borderless mb-1">
+                    <thead class="small text-muted">
+                        <tr>
+                            <th>Physical quantity</th>
+                            <th>Formula</th>
+                            <th>Dimension</th>
+                        </tr>
+                    </thead>
+                    <tbody class="small">
+                        <tr>
+                            <td>Velocity</td>
+                            <td>v = s / t</td>
+                            <td>[M<sup>0</sup>L T<sup>-1</sup>]</td>
+                        </tr>
+                        <tr>
+                            <td>Acceleration</td>
+                            <td>a = v / t</td>
+                            <td>[M<sup>0</sup>L T<sup>-2</sup>]</td>
+                        </tr>
+                        <tr>
+                            <td>Force</td>
+                            <td>F = m a</td>
+                            <td>[M L T<sup>-2</sup>]</td>
+                        </tr>
+                        <tr>
+                            <td>Work / Energy</td>
+                            <td>W = F s</td>
+                            <td>[M L<sup>2</sup> T<sup>-2</sup>]</td>
+                        </tr>
+                        <tr>
+                            <td>Power</td>
+                            <td>P = W / t</td>
+                            <td>[M L<sup>2</sup> T<sup>-3</sup>]</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="text-muted small mb-0">
+                    Dimensions follow [M L T] convention and help in checking correctness of formulae.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+const unitOptions = {
+    length: {
+        m: 1,
+        cm: 0.01,
+        km: 1000,
+        mm: 0.001
+    },
+    mass: {
+        kg: 1,
+        g: 0.001,
+        mg: 0.000001
+    },
+    time: {
+        s: 1,
+        min: 60,
+        h: 3600
+    }
+};
+
+const unitLabels = {
+    length: ["m","cm","mm","km"],
+    mass: ["kg","g","mg"],
+    time: ["s","min","h"]
+};
+
+function populateUnitSelects() {
+    const q = document.getElementById("u_quantity").value;
+    const fromSel = document.getElementById("u_from");
+    const toSel = document.getElementById("u_to");
+    fromSel.innerHTML = "";
+    toSel.innerHTML = "";
+    unitLabels[q].forEach(u => {
+        fromSel.add(new Option(u, u));
+        toSel.add(new Option(u, u));
+    });
+}
+populateUnitSelects();
+document.getElementById("u_quantity").addEventListener("change", populateUnitSelects);
+
+function convertUnit() {
+    const q = document.getElementById("u_quantity").value;
+    const from = document.getElementById("u_from").value;
+    const to = document.getElementById("u_to").value;
+    const val = parseFloat(document.getElementById("u_value").value);
+    const resBox = document.getElementById("u_result");
+
+    if (isNaN(val)) {
+        resBox.classList.remove("d-none","alert-success");
+        resBox.classList.add("alert-danger");
+        resBox.innerText = "Please enter a value.";
+        return;
+    }
+
+    const base = val * unitOptions[q][from];     // convert to base SI
+    const conv = base / unitOptions[q][to];      // convert to target
+    resBox.classList.remove("d-none","alert-danger");
+    resBox.classList.add("alert-success");
+    resBox.innerText = `${val} ${from} = ${conv.toPrecision(6)} ${to}`;
+}
+
+function calcError() {
+    const tv = parseFloat(document.getElementById("true_value").value);
+    const mv = parseFloat(document.getElementById("measured_value").value);
+    const box = document.getElementById("err_result");
+
+    if (isNaN(tv) || isNaN(mv)) {
+        box.classList.remove("d-none","alert-success");
+        box.classList.add("alert-danger");
+        box.innerText = "Enter both true and measured values.";
+        return;
+    }
+
+    const absErr = Math.abs(tv - mv);
+    const perErr = (absErr / Math.abs(tv)) * 100;
+    box.classList.remove("d-none","alert-danger");
+    box.classList.add("alert-success");
+    box.innerHTML =
+        `Absolute error = ${absErr.toPrecision(4)}<br>` +
+        `Percentage error = ${perErr.toPrecision(4)} %`;
+}
+</script>
+
+{% endblock %}

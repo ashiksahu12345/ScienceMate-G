@@ -1,0 +1,113 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h4 class="mb-3">• Physics – Work, Energy & Power</h4>
+<p class="text-muted">All basic WEP formulas in one place.</p>
+
+{% if error %}
+  <div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+{% if result %}
+  <div class="alert alert-success">{{ result }}</div>
+{% endif %}
+
+<div class="row g-3">
+
+  <!-- Work -->
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Work: W = F d cosθ</div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="work">
+          <div class="mb-2">
+            <label class="form-label">F (N)</label>
+            <input type="number" step="any" name="F" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">d (m)</label>
+            <input type="number" step="any" name="d" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">θ (degrees)</label>
+            <input type="number" step="any" name="theta" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate W</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Power -->
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Power: P = W / t</div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="power">
+          <div class="mb-2">
+            <label class="form-label">W (J)</label>
+            <input type="number" step="any" name="W" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">t (s)</label>
+            <input type="number" step="any" name="t" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate P</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="row g-3 mt-1">
+
+  <!-- KE -->
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Kinetic Energy: KE = ½ m v²</div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="ke">
+          <div class="mb-2">
+            <label class="form-label">m (kg)</label>
+            <input type="number" step="any" name="m" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">v (m/s)</label>
+            <input type="number" step="any" name="v" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate KE</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- PE -->
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Potential Energy: PE = m g h</div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="pe">
+          <div class="mb-2">
+            <label class="form-label">m (kg)</label>
+            <input type="number" step="any" name="m" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">h (m)</label>
+            <input type="number" step="any" name="h" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate PE</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

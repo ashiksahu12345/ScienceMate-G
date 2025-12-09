@@ -1,0 +1,97 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h4 class="mb-3">• Physics – AC Circuits</h4>
+<p class="text-muted">
+  RMS values, AC power and reactances of L & C in an AC circuit.
+</p>
+
+{% if error %}
+  <div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+{% if result %}
+  <div class="alert alert-success">{{ result }}</div>
+{% endif %}
+
+<div class="row g-3">
+
+  <!-- RMS values -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">RMS: V_rms = V_max/√2, I_rms = I_max/√2</div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="rms">
+          <div class="mb-2">
+            <label class="form-label">V_max (V)</label>
+            <input type="number" step="any" name="Vmax" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">I_max (A)</label>
+            <input type="number" step="any" name="Imax" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">
+            Calculate V_rms & I_rms
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- AC Power -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Power: P = V_rms I_rms cosφ</div>
+      <div class="card-body">
+        <p class="small text-muted">Enter RMS values and power factor (0 to 1).</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="power_ac">
+          <div class="mb-2">
+            <label class="form-label">V_rms (V)</label>
+            <input type="number" step="any" name="Vr" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">I_rms (A)</label>
+            <input type="number" step="any" name="Ir" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Power factor cosφ</label>
+            <input type="number" step="any" name="pf" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate P</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reactances -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">X_L = 2π f L,  X_C = 1/(2π f C)</div>
+      <div class="card-body">
+        <p class="small text-muted">f in Hz, L in H, C in F.</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="reactance">
+          <div class="mb-2">
+            <label class="form-label">f (Hz)</label>
+            <input type="number" step="any" name="f" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">L (H)</label>
+            <input type="number" step="any" name="L" class="form-control" value="0">
+          </div>
+          <div class="mb-2">
+            <label class="form-label">C (F)</label>
+            <input type="number" step="any" name="C" class="form-control" value="0">
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate X_L, X_C</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

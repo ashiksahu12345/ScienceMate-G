@@ -1,0 +1,185 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+
+<h3 class="section-title mb-2">Wave Optics Calculators</h3>
+<p class="text-muted mb-3">
+    Interference and diffraction tools for Young's double slit, path difference and single-slit diffraction.
+</p>
+
+<div class="section-divider"></div>
+
+<div class="row g-3">
+
+    <!-- Young's Double Slit fringe width -->
+    <div class="col-lg-4">
+        <div class="card h-100">
+            <div class="card-header pb-1">
+                <small class="text-uppercase text-muted">Tool 1</small>
+                <h6 class="mb-0">YDS – Fringe Width</h6>
+            </div>
+            <div class="card-body">
+                <p class="small text-muted mb-2">
+                    Fringe width \( \beta = \dfrac{\lambda D}{d} \)
+                </p>
+                <div class="mb-2">
+                    <label class="form-label mb-1">Wavelength λ (nm)</label>
+                    <input id="yds_lambda" type="number" step="any" class="form-control" placeholder="e.g. 600">
+                </div>
+                <div class="mb-2">
+                    <label class="form-label mb-1">Screen distance D (m)</label>
+                    <input id="yds_D" type="number" step="any" class="form-control" placeholder="e.g. 2">
+                </div>
+                <div class="mb-2">
+                    <label class="form-label mb-1">Slit separation d (mm)</label>
+                    <input id="yds_d" type="number" step="any" class="form-control" placeholder="e.g. 0.5">
+                </div>
+                <button class="btn btn-primary btn-sm" type="button" onclick="calcYDS()">
+                    Find fringe width
+                </button>
+                <div id="yds_result" class="alert alert-success mt-2 d-none"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Path difference to fringe type -->
+    <div class="col-lg-4">
+        <div class="card h-100">
+            <div class="card-header pb-1">
+                <small class="text-uppercase text-muted">Tool 2</small>
+                <h6 class="mb-0">Path Difference & Fringe Type</h6>
+            </div>
+            <div class="card-body">
+                <p class="small text-muted mb-2">
+                    Bright: \( \Delta x = n\lambda \) ; Dark: \( \Delta x = (n + 1/2)\lambda \)
+                </p>
+                <div class="mb-2">
+                    <label class="form-label mb-1">Path difference Δx (m)</label>
+                    <input id="pd_dx" type="number" step="any" class="form-control" placeholder="e.g. 3e-7">
+                </div>
+                <div class="mb-2">
+                    <label class="form-label mb-1">Wavelength λ (m)</label>
+                    <input id="pd_lambda" type="number" step="any" class="form-control" placeholder="e.g. 6e-7">
+                </div>
+                <button class="btn btn-primary btn-sm" type="button" onclick="calcFringeType()">
+                    Check fringe type
+                </button>
+                <div id="pd_result" class="alert alert-success mt-2 d-none"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Single slit diffraction -->
+    <div class="col-lg-4">
+        <div class="card h-100">
+            <div class="card-header pb-1">
+                <small class="text-uppercase text-muted">Tool 3</small>
+                <h6 class="mb-0">Single-slit Diffraction</h6>
+            </div>
+            <div class="card-body">
+                <p class="small text-muted mb-2">
+                    Minima: \( a \sin \theta = n\lambda \) (n = 1,2,3…)
+                </p>
+                <div class="mb-2">
+                    <label class="form-label mb-1">Slit width a (mm)</label>
+                    <input id="sd_a" type="number" step="any" class="form-control" placeholder="e.g. 0.3">
+                </div>
+                <div class="mb-2">
+                    <label class="form-label mb-1">Order n</label>
+                    <input id="sd_n" type="number" step="1" class="form-control" value="1">
+                </div>
+                <div class="mb-2">
+                    <label class="form-label mb-1">Wavelength λ (nm)</label>
+                    <input id="sd_lambda" type="number" step="any" class="form-control" placeholder="e.g. 500">
+                </div>
+                <div class="mb-2">
+                    <label class="form-label mb-1">Screen distance D (m)</label>
+                    <input id="sd_D" type="number" step="any" class="form-control" placeholder="e.g. 1.5">
+                </div>
+                <button class="btn btn-primary btn-sm" type="button" onclick="calcDiffraction()">
+                    Calculate θ and position y
+                </button>
+                <div id="sd_result" class="alert alert-success mt-2 d-none"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function calcYDS() {
+    const lam_nm = parseFloat(document.getElementById("yds_lambda").value);
+    const D = parseFloat(document.getElementById("yds_D").value);
+    const d_mm = parseFloat(document.getElementById("yds_d").value);
+    const box = document.getElementById("yds_result");
+    if (isNaN(lam_nm) || isNaN(D) || isNaN(d_mm) || d_mm === 0) {
+        box.classList.remove("d-none","alert-success");
+        box.classList.add("alert-danger");
+        box.innerText = "Enter λ, D and d properly.";
+        return;
+    }
+    const lam = lam_nm * 1e-9;   // nm → m
+    const d = d_mm * 1e-3;       // mm → m
+    const beta = lam * D / d;
+    box.classList.remove("d-none","alert-danger");
+    box.classList.add("alert-success");
+    box.innerText = `Fringe width β ≈ ${beta.toExponential(3)} m`;
+}
+
+function calcFringeType() {
+    const dx = parseFloat(document.getElementById("pd_dx").value);
+    const lam = parseFloat(document.getElementById("pd_lambda").value);
+    const box = document.getElementById("pd_result");
+    if (isNaN(dx) || isNaN(lam) || lam === 0) {
+        box.classList.remove("d-none","alert-success");
+        box.classList.add("alert-danger");
+        box.innerText = "Enter Δx and λ in metres.";
+        return;
+    }
+    const n = dx / lam;
+    const nInt = Math.round(n);
+    let type;
+    if (Math.abs(n - nInt) < 0.05) {
+        type = `Bright fringe of order n ≈ ${n.toFixed(2)} ≈ ${nInt}.`;
+    } else if (Math.abs(n - (nInt + 0.5)) < 0.05) {
+        type = `Dark fringe near order n ≈ ${n.toFixed(2)} (≈ ${nInt}+1/2).`;
+    } else {
+        type = "Not exactly at central bright or dark; somewhere in between.";
+    }
+    box.classList.remove("d-none","alert-danger");
+    box.classList.add("alert-success");
+    box.innerHTML = `n = Δx/λ = ${n.toFixed(3)}<br>${type}`;
+}
+
+function calcDiffraction() {
+    const a_mm = parseFloat(document.getElementById("sd_a").value);
+    const n = parseInt(document.getElementById("sd_n").value);
+    const lam_nm = parseFloat(document.getElementById("sd_lambda").value);
+    const D = parseFloat(document.getElementById("sd_D").value);
+    const box = document.getElementById("sd_result");
+    if (isNaN(a_mm) || isNaN(n) || isNaN(lam_nm) || isNaN(D) || a_mm === 0) {
+        box.classList.remove("d-none","alert-success");
+        box.classList.add("alert-danger");
+        box.innerText = "Enter a, n, λ and D properly.";
+        return;
+    }
+    const a = a_mm * 1e-3;
+    const lam = lam_nm * 1e-9;
+    const sinTheta = n * lam / a;
+    if (Math.abs(sinTheta) > 1) {
+        box.classList.remove("d-none","alert-success");
+        box.classList.add("alert-danger");
+        box.innerText = "For these values, no real minimum (sinθ>1).";
+        return;
+    }
+    const theta = Math.asin(sinTheta);
+    const thetaDeg = theta * 180 / Math.PI;
+    const y = D * Math.tan(theta);
+    box.classList.remove("d-none","alert-danger");
+    box.classList.add("alert-success");
+    box.innerHTML =
+        `θ ≈ ${thetaDeg.toFixed(3)}°<br>` +
+        `Position of nth minimum from central maximum y ≈ ${y.toExponential(3)} m`;
+}
+</script>
+
+{% endblock %}

@@ -1,0 +1,92 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h4 class="mb-3">• Physics – Fluid Mechanics</h4>
+<p class="text-muted">
+  Pressure in liquids, buoyant force and continuity equation calculators.
+</p>
+
+{% if error %}
+  <div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+{% if result %}
+  <div class="alert alert-success">{{ result }}</div>
+{% endif %}
+
+<div class="row g-3">
+
+  <!-- P = ρ g h -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Pressure: P = ρ g h</div>
+      <div class="card-body">
+        <p class="small text-muted">ρ in kg/m³, h in m, g ≈ 9.8 m/s²</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="pressure">
+          <div class="mb-2">
+            <label class="form-label">ρ (density, kg/m³)</label>
+            <input type="number" step="any" name="rho" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">h (depth, m)</label>
+            <input type="number" step="any" name="h" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate P</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Buoyant force -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Buoyant Force: Fᵦ = ρ g V</div>
+      <div class="card-body">
+        <p class="small text-muted">V = volume displaced (m³).</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="buoyant">
+          <div class="mb-2">
+            <label class="form-label">ρ (fluid density, kg/m³)</label>
+            <input type="number" step="any" name="rho" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">V (m³)</label>
+            <input type="number" step="any" name="V" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate Fᵦ</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Continuity: A1 v1 = A2 v2 -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Continuity: A₁ v₁ = A₂ v₂</div>
+      <div class="card-body">
+        <p class="small text-muted">Find outlet speed v₂ from pipe areas & inlet speed.</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="continuity">
+          <div class="mb-2">
+            <label class="form-label">A₁ (m²)</label>
+            <input type="number" step="any" name="A1" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">v₁ (m/s)</label>
+            <input type="number" step="any" name="v1" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">A₂ (m²)</label>
+            <input type="number" step="any" name="A2" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate v₂</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

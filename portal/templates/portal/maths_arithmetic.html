@@ -1,0 +1,59 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h4 class="mb-3">• Maths – Arithmetic</h4>
+
+{% if error %}
+  <div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+{% if result %}
+  <div class="alert alert-success">{{ result }}</div>
+{% endif %}
+
+<div class="row g-3">
+
+  <!-- Percentage -->
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Percentage = (part / whole) × 100</div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="percentage">
+          <div class="mb-2">
+            <label class="form-label">Part</label>
+            <input type="number" step="any" name="part" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Whole</label>
+            <input type="number" step="any" name="whole" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate %</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Average -->
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Average of numbers</div>
+      <div class="card-body">
+        <p class="small text-muted mb-1">
+          Enter numbers separated by comma, e.g. <code>10, 20, 30</code>
+        </p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="average">
+          <div class="mb-2">
+            <label class="form-label">Numbers</label>
+            <textarea name="numbers" rows="3" class="form-control" required></textarea>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate Average</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

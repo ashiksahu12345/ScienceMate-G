@@ -1,0 +1,197 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+
+<h3 class="section-title mb-2">Ray Optics Calculators</h3>
+<p class="text-muted mb-3">
+    Use mirror/lens formula, magnification and Snell's law to solve numerical problems quickly.
+</p>
+
+<div class="section-divider"></div>
+
+<div class="row g-3">
+
+    <!-- Mirror / Lens formula -->
+    <div class="col-lg-4">
+        <div class="card h-100">
+            <div class="card-header pb-1">
+                <small class="text-uppercase text-muted">Tool 1</small>
+                <h6 class="mb-0">Mirror/Lens Formula</h6>
+            </div>
+            <div class="card-body">
+                <p class="small text-muted mb-2">
+                    \[ \frac{1}{f} = \frac{1}{v} - \frac{1}{u} \]
+                </p>
+                <div class="mb-2">
+                    <label class="form-label mb-1">Object distance u (cm)</label>
+                    <input id="ro_u" type="number" step="any" class="form-control" placeholder="e.g. -20">
+                </div>
+                <div class="mb-2">
+                    <label class="form-label mb-1">Image distance v (cm)</label>
+                    <input id="ro_v" type="number" step="any" class="form-control" placeholder="e.g. 30">
+                </div>
+                <button class="btn btn-primary btn-sm" type="button" onclick="calcFocal()">
+                    Find focal length
+                </button>
+                <div id="ro_f_result" class="alert alert-success mt-2 d-none"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Magnification -->
+    <div class="col-lg-4">
+        <div class="card h-100">
+            <div class="card-header pb-1">
+                <small class="text-uppercase text-muted">Tool 2</small>
+                <h6 class="mb-0">Magnification</h6>
+            </div>
+            <div class="card-body">
+                <p class="small text-muted mb-2">
+                    Linear magnification \( m = \frac{v}{u} = \frac{h_2}{h_1} \)
+                </p>
+                <div class="mb-2">
+                    <label class="form-label mb-1">Object distance u (cm)</label>
+                    <input id="mag_u" type="number" step="any" class="form-control">
+                </div>
+                <div class="mb-2">
+                    <label class="form-label mb-1">Image distance v (cm)</label>
+                    <input id="mag_v" type="number" step="any" class="form-control">
+                </div>
+                <div class="mb-2">
+                    <label class="form-label mb-1">Object height h₁ (cm)</label>
+                    <input id="mag_h1" type="number" step="any" class="form-control">
+                </div>
+                <button class="btn btn-primary btn-sm" type="button" onclick="calcMagnification()">
+                    Calculate magnification
+                </button>
+                <div id="mag_result" class="alert alert-success mt-2 d-none"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Snell's law & refractive index -->
+    <div class="col-lg-4">
+        <div class="card h-100">
+            <div class="card-header pb-1">
+                <small class="text-uppercase text-muted">Tool 3</small>
+                <h6 class="mb-0">Snell's Law & Refractive Index</h6>
+            </div>
+            <div class="card-body">
+                <p class="small text-muted mb-2">
+                    \( n_1 \sin i = n_2 \sin r \) &nbsp;&nbsp; ; &nbsp;
+                    \( n = \dfrac{c}{v} \)
+                </p>
+                <div class="mb-2">
+                    <label class="form-label mb-1">n₁ (from medium)</label>
+                    <input id="n1" type="number" step="any" value="1" class="form-control">
+                </div>
+                <div class="mb-2">
+                    <label class="form-label mb-1">n₂ (to medium)</label>
+                    <input id="n2" type="number" step="any" value="1.5" class="form-control">
+                </div>
+                <div class="mb-2">
+                    <label class="form-label mb-1">Angle of incidence i (°)</label>
+                    <input id="angle_i" type="number" step="any" class="form-control">
+                </div>
+                <button class="btn btn-primary btn-sm mb-2" type="button" onclick="calcSnell()">
+                    Find angle of refraction
+                </button>
+                <div id="snell_result" class="alert alert-success mt-2 d-none"></div>
+
+                <hr class="section-divider my-2">
+
+                <div class="mb-2">
+                    <label class="form-label mb-1">Speed of light in medium v (m/s)</label>
+                    <input id="speed_v" type="number" step="any" class="form-control" placeholder="e.g. 2e8">
+                </div>
+                <button class="btn btn-primary btn-sm" type="button" onclick="calcRefractiveIndex()">
+                    Find refractive index n
+                </button>
+                <div id="n_result" class="alert alert-success mt-2 d-none"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function calcFocal() {
+    const u = parseFloat(document.getElementById("ro_u").value);
+    const v = parseFloat(document.getElementById("ro_v").value);
+    const box = document.getElementById("ro_f_result");
+    if (isNaN(u) || isNaN(v) || u === v) {
+        box.classList.remove("d-none","alert-success");
+        box.classList.add("alert-danger");
+        box.innerText = "Enter valid u and v (u ≠ v).";
+        return;
+    }
+    const f = (u * v) / (v - u);
+    box.classList.remove("d-none","alert-danger");
+    box.classList.add("alert-success");
+    box.innerText = `Focal length f = ${f.toFixed(3)} cm`;
+}
+
+function calcMagnification() {
+    const u = parseFloat(document.getElementById("mag_u").value);
+    const v = parseFloat(document.getElementById("mag_v").value);
+    const h1 = parseFloat(document.getElementById("mag_h1").value);
+    const box = document.getElementById("mag_result");
+    if (isNaN(u) || isNaN(v)) {
+        box.classList.remove("d-none","alert-success");
+        box.classList.add("alert-danger");
+        box.innerText = "Enter both u and v.";
+        return;
+    }
+    const m = v / u;
+    let msg = `Magnification m = v / u = ${m.toFixed(3)}.`;
+    if (!isNaN(h1)) {
+        const h2 = m * h1;
+        msg += `  If object height h₁ = ${h1}, then image height h₂ = ${h2.toFixed(3)}.`;
+    }
+    box.classList.remove("d-none","alert-danger");
+    box.classList.add("alert-success");
+    box.innerText = msg;
+}
+
+function calcSnell() {
+    const n1 = parseFloat(document.getElementById("n1").value);
+    const n2 = parseFloat(document.getElementById("n2").value);
+    const i = parseFloat(document.getElementById("angle_i").value);
+    const box = document.getElementById("snell_result");
+    if (isNaN(n1) || isNaN(n2) || isNaN(i)) {
+        box.classList.remove("d-none","alert-success");
+        box.classList.add("alert-danger");
+        box.innerText = "Enter n₁, n₂ and angle i.";
+        return;
+    }
+    const rad = i * Math.PI / 180;
+    const sinr = (n1 / n2) * Math.sin(rad);
+    if (Math.abs(sinr) > 1) {
+        box.classList.remove("d-none","alert-success");
+        box.classList.add("alert-danger");
+        box.innerText = "Total internal reflection (no real refraction).";
+        return;
+    }
+    const r = Math.asin(sinr) * 180 / Math.PI;
+    box.classList.remove("d-none","alert-danger");
+    box.classList.add("alert-success");
+    box.innerText = `Angle of refraction r ≈ ${r.toFixed(3)}°`;
+}
+
+function calcRefractiveIndex() {
+    const v = parseFloat(document.getElementById("speed_v").value);
+    const box = document.getElementById("n_result");
+    const c = 3e8;
+    if (isNaN(v) || v <= 0) {
+        box.classList.remove("d-none","alert-success");
+        box.classList.add("alert-danger");
+        box.innerText = "Enter valid speed v.";
+        return;
+    }
+    const n = c / v;
+    box.classList.remove("d-none","alert-danger");
+    box.classList.add("alert-success");
+    box.innerText = `Refractive index n = c / v = ${n.toFixed(3)}`;
+}
+</script>
+
+{% endblock %}

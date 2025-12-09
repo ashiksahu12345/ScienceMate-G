@@ -1,0 +1,74 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h4 class="mb-3">• Chemistry – Atomic Structure</h4>
+<p class="text-muted">
+  Bohr model energy levels and De Broglie wavelength calculator.
+</p>
+
+{% if error %}
+  <div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+{% if result %}
+  <div class="alert alert-success">{{ result }}</div>
+{% endif %}
+
+<div class="row g-3">
+
+  <!-- Bohr energy -->
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">
+        Bohr Energy: Eₙ = -13.6 Z² / n²  (eV)
+      </div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="bohr_energy">
+          <div class="mb-2">
+            <label class="form-label">Atomic number Z</label>
+            <input type="number" step="any" name="Z" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Orbit number n</label>
+            <input type="number" step="any" name="n" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">
+            Calculate Eₙ
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- De Broglie wavelength -->
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">
+        De Broglie: λ = h / (m v)
+      </div>
+      <div class="card-body">
+        <p class="small text-muted">
+          h = 6.626 × 10⁻³⁴ J·s
+        </p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="de_broglie">
+          <div class="mb-2">
+            <label class="form-label">Mass m (kg)</label>
+            <input type="number" step="any" name="m" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Velocity v (m/s)</label>
+            <input type="number" step="any" name="v" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">
+            Calculate λ
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

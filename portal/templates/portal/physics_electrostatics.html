@@ -1,0 +1,96 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h4 class="mb-3">• Physics – Electrostatics</h4>
+<p class="text-muted">
+  Coulomb force, electric field and potential energy between point charges.
+</p>
+
+{% if error %}
+  <div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+{% if result %}
+  <div class="alert alert-success">{{ result }}</div>
+{% endif %}
+
+<div class="row g-3">
+
+  <!-- Coulomb force -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">F = k q₁ q₂ / r²</div>
+      <div class="card-body">
+        <p class="small text-muted">q in C, r in m, k ≈ 9×10⁹ N·m²/C².</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="coulomb">
+          <div class="mb-2">
+            <label class="form-label">q₁ (C)</label>
+            <input type="number" step="any" name="q1" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">q₂ (C)</label>
+            <input type="number" step="any" name="q2" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">r (m)</label>
+            <input type="number" step="any" name="r" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate F</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Electric field -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">E = F / q</div>
+      <div class="card-body">
+        <p class="small text-muted">Electric field from force on a test charge.</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="field">
+          <div class="mb-2">
+            <label class="form-label">F (N)</label>
+            <input type="number" step="any" name="F" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">q (C)</label>
+            <input type="number" step="any" name="q" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate E</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Potential energy -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">U = k q₁ q₂ / r</div>
+      <div class="card-body">
+        <p class="small text-muted">Electrostatic potential energy of two point charges.</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="energy">
+          <div class="mb-2">
+            <label class="form-label">q₁ (C)</label>
+            <input type="number" step="any" name="q1" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">q₂ (C)</label>
+            <input type="number" step="any" name="q2" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">r (m)</label>
+            <input type="number" step="any" name="r" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate U</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

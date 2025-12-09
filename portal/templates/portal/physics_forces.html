@@ -1,0 +1,79 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h4 class="mb-3">• Physics – Newton’s Laws & Forces</h4>
+<p class="text-muted">Calculate net force, weight and friction easily.</p>
+
+{% if error %}
+  <div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+{% if result %}
+  <div class="alert alert-success">{{ result }}</div>
+{% endif %}
+
+<div class="row g-3">
+
+  <!-- F = m a -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">F = m a</div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="f_ma">
+          <div class="mb-2">
+            <label class="form-label">m (kg)</label>
+            <input type="number" step="any" name="m" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">a (m/s²)</label>
+            <input type="number" step="any" name="a" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate F</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Weight -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Weight W = m g</div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="weight">
+          <div class="mb-2">
+            <label class="form-label">m (kg)</label>
+            <input type="number" step="any" name="m" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate W</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Friction -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Friction F = μ N</div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="friction">
+          <div class="mb-2">
+            <label class="form-label">μ (coefficient)</label>
+            <input type="number" step="any" name="mu" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">N (normal force, N)</label>
+            <input type="number" step="any" name="N" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate F</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

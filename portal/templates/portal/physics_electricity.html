@@ -1,0 +1,115 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h4 class="mb-3">• Physics – Current Electricity (DC)</h4>
+<p class="text-muted">
+  Ohm’s law, power and equivalent resistance of simple circuits.
+</p>
+
+{% if error %}
+  <div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+{% if result %}
+  <div class="alert alert-success">{{ result }}</div>
+{% endif %}
+
+<div class="row g-3">
+
+  <!-- Ohm's law -->
+  <div class="col-md-3">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Ohm’s Law: V = I R</div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="ohm">
+          <div class="mb-2">
+            <label class="form-label">I (A)</label>
+            <input type="number" step="any" name="I" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">R (Ω)</label>
+            <input type="number" step="any" name="R" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate V</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Power -->
+  <div class="col-md-3">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Power: P = V I</div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="power">
+          <div class="mb-2">
+            <label class="form-label">V (V)</label>
+            <input type="number" step="any" name="V" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">I (A)</label>
+            <input type="number" step="any" name="I" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate P</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Series R -->
+  <div class="col-md-3">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Series: R_eq = R₁ + R₂ + R₃</div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="r_series">
+          <div class="mb-2">
+            <label class="form-label">R₁ (Ω)</label>
+            <input type="number" step="any" name="R1" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">R₂ (Ω)</label>
+            <input type="number" step="any" name="R2" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">R₃ (Ω)</label>
+            <input type="number" step="any" name="R3" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate R_eq</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Parallel R -->
+  <div class="col-md-3">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Parallel: 1/R_eq = 1/R₁ + 1/R₂ + 1/R₃</div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="r_parallel">
+          <div class="mb-2">
+            <label class="form-label">R₁ (Ω)</label>
+            <input type="number" step="any" name="R1" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">R₂ (Ω)</label>
+            <input type="number" step="any" name="R2" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">R₃ (Ω)</label>
+            <input type="number" step="any" name="R3" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate R_eq</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

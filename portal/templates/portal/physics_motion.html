@@ -1,0 +1,95 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h4 class="mb-3">• Physics – Motion (Kinematics)</h4>
+<p class="text-muted">Use the standard equations of motion for uniformly accelerated motion.</p>
+
+{% if error %}
+  <div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+{% if result %}
+  <div class="alert alert-success">{{ result }}</div>
+{% endif %}
+
+<div class="row g-3">
+
+  <!-- v = u + a t -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">v = u + a t</div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="v_from_uat">
+          <div class="mb-2">
+            <label class="form-label">u (m/s)</label>
+            <input type="number" step="any" name="u" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">a (m/s²)</label>
+            <input type="number" step="any" name="a" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">t (s)</label>
+            <input type="number" step="any" name="t" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate v</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- s = u t + ½ a t² -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">s = u t + ½ a t²</div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="s_from_uat">
+          <div class="mb-2">
+            <label class="form-label">u (m/s)</label>
+            <input type="number" step="any" name="u" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">a (m/s²)</label>
+            <input type="number" step="any" name="a" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">t (s)</label>
+            <input type="number" step="any" name="t" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate s</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- v² = u² + 2 a s -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">v² = u² + 2 a s</div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="v_from_uas">
+          <div class="mb-2">
+            <label class="form-label">u (m/s)</label>
+            <input type="number" step="any" name="u" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">a (m/s²)</label>
+            <input type="number" step="any" name="a" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">s (m)</label>
+            <input type="number" step="any" name="s" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate v</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h4 class="mb-3">• Physics – Gravitation</h4>
+<p class="text-muted">
+  Universal law of gravitation and acceleration due to gravity.
+</p>
+
+{% if error %}
+  <div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+{% if result %}
+  <div class="alert alert-success">{{ result }}</div>
+{% endif %}
+
+<div class="row g-3">
+
+  <!-- F = G m1 m2 / r^2 -->
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">
+        F = G m₁ m₂ / r²
+      </div>
+      <div class="card-body">
+        <p class="small text-muted mb-1">
+          G = 6.67 × 10⁻¹¹ N·m²/kg²
+        </p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="grav_force">
+          <div class="mb-2">
+            <label class="form-label">m₁ (kg)</label>
+            <input type="number" step="any" name="m1" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">m₂ (kg)</label>
+            <input type="number" step="any" name="m2" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">r (m)</label>
+            <input type="number" step="any" name="r" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">
+            Calculate F
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- g = G M / R^2 -->
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">
+        g = G M / R²
+      </div>
+      <div class="card-body">
+        <p class="small text-muted mb-1">
+          Use mass and radius of planet to compute surface g.
+        </p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="g_surface">
+          <div class="mb-2">
+            <label class="form-label">M (kg)</label>
+            <input type="number" step="any" name="M" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">R (m)</label>
+            <input type="number" step="any" name="R" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">
+            Calculate g
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

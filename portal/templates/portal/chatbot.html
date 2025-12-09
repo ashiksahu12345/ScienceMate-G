@@ -1,0 +1,78 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h3 class="mb-3">✨ Science Mate Chatbot</h3>
+<p class="text-muted">
+  Ask short concept doubts. For full questions (numerical / long), use
+  the <a href="{% url 'upload_question' %}">Upload Question</a> page.
+</p>
+
+<div class="row g-4">
+  <!-- Chat area -->
+  <div class="col-md-7">
+    <div class="card shadow-sm chat-card">
+      <div class="card-header fw-bold">
+        Conversation
+      </div>
+      <div class="card-body chat-body" id="chat-body">
+        {% for msg in chat_history %}
+          {% if msg.sender == "user" %}
+            <div class="chat-bubble user">
+              <strong>You:</strong> {{ msg.text }}
+            </div>
+          {% else %}
+            <div class="chat-bubble bot">
+              <strong>Bot:</strong> {{ msg.text }}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div class="card-footer">
+        <form method="post">
+          {% csrf_token %}
+          {{ form.message }}
+          <button class="btn btn-primary mt-2">Send</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Help / examples -->
+  <div class="col-md-5">
+    <div class="card shadow-sm mb-3">
+      <div class="card-header fw-bold">
+        Try asking…
+      </div>
+      <div class="card-body small">
+        <ul>
+          <li>"formula for momentum"</li>
+          <li>"surface area of sphere"</li>
+          <li>"how to find midpoint of two points"</li>
+          <li>"what is probability formula"</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card shadow-sm">
+      <div class="card-header fw-bold">
+        How this works?
+      </div>
+      <div class="card-body small">
+        <ul>
+          <li>Messages are stored only in your browser session.</li>
+          <li>Bot uses a simple rule-based reply (see <code>_generate_bot_reply</code> in <code>views.py</code>).</li>
+          <li>Later you can replace it with a real AI API.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// chat area ko auto scroll bottom pe le jao
+const chatBody = document.getElementById('chat-body');
+if (chatBody) {
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
+</script>
+{% endblock %}

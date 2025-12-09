@@ -1,0 +1,63 @@
+{% extends "portal/maths_topic_base.html" %}
+
+{% block page_title %}Polynomials – Mathematics | Science Mate{% endblock %}
+{% block topic_title %}Polynomials{% endblock %}
+{% block topic_intro %}
+Understand degree, zeros and values of polynomials at given points.
+{% endblock %}
+
+{% block subtopics %}
+<ul>
+  <li>Definition of polynomial, degree</li>
+  <li>Zeros / roots of a polynomial</li>
+  <li>Relationship between zeros and coefficients (quadratic / cubic)</li>
+  <li>Division algorithm for polynomials</li>
+  <li>Graphical shape of polynomial functions</li>
+</ul>
+{% endblock %}
+
+{% block calc_cards %}
+  <!-- Evaluate cubic polynomial -->
+  <div class="col">
+    <div class="card h-100 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">Calculator 1: P(x) = ax³ + bx² + cx + d</h5>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="poly_value">
+          <div class="row g-1 mb-2">
+            <div class="col-3"><input name="a" type="number" step="any" class="form-control form-control-sm" placeholder="a" required></div>
+            <div class="col-3"><input name="b" type="number" step="any" class="form-control form-control-sm" placeholder="b" required></div>
+            <div class="col-3"><input name="c" type="number" step="any" class="form-control form-control-sm" placeholder="c" required></div>
+            <div class="col-3"><input name="d" type="number" step="any" class="form-control form-control-sm" placeholder="d" required></div>
+          </div>
+          <div class="mb-2">
+            <label class="form-label small">x value</label>
+            <input name="x" type="number" step="any" class="form-control form-control-sm" required>
+          </div>
+          <button type="submit" class="btn btn-sm btn-primary">Calculate P(x)</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Relationship zeros & coefficients for quadratic -->
+  <div class="col">
+    <div class="card h-100 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">Calculator 2: α + β and αβ (ax² + bx + c)</h5>
+        <p class="text-muted small">α + β = −b/a, αβ = c/a</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="quad_zeros_coeff">
+          <div class="row g-1 mb-2">
+            <div class="col-4"><input name="qa" type="number" step="any" class="form-control form-control-sm" placeholder="a" required></div>
+            <div class="col-4"><input name="qb" type="number" step="any" class="form-control form-control-sm" placeholder="b" required></div>
+            <div class="col-4"><input name="qc" type="number" step="any" class="form-control form-control-sm" placeholder="c" required></div>
+          </div>
+          <button type="submit" class="btn btn-sm btn-primary">Compute</button>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

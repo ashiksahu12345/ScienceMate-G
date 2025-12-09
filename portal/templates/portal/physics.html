@@ -1,0 +1,79 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+
+<h3 class="text-center fw-bold mt-3">Physics — Complete Syllabus</h3>
+<p class="text-center text-muted mb-4">
+Select a chapter category to explore calculators, tools & concepts.
+</p>
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+
+  <a href="{% url 'physics_mechanics' %}" class="col text-decoration-none">
+    <div class="card shadow-lg text-center p-3 h-100 hover-card">
+      <h5 class="fw-bold">Mechanics</h5>
+      <p class="small text-muted">Motion • WEP • Gravitation • SHM • Fluids</p>
+    </div>
+  </a>
+
+  <a href="{% url 'physics_waves' %}" class="col text-decoration-none">
+    <div class="card shadow-lg text-center p-3 h-100 hover-card">
+      <h5 class="fw-bold">Waves & Sound</h5>
+      <p class="small text-muted">Wave speed • Frequency • Doppler • Beats</p>
+    </div>
+  </a>
+
+  <a href="{% url 'physics_thermal' %}" class="col text-decoration-none">
+    <div class="card shadow-lg text-center p-3 h-100 hover-card">
+      <h5 class="fw-bold">Thermal Physics</h5>
+      <p class="small text-muted">Heat • Temp • Thermodynamics</p>
+    </div>
+  </a>
+
+  <a href="{% url 'physics_optics' %}" class="col text-decoration-none">
+    <div class="card shadow-lg text-center p-3 h-100 hover-card">
+      <h5 class="fw-bold">Optics</h5>
+      <p class="small text-muted">Lenses • Mirrors • Ray Optics • Diffraction</p>
+    </div>
+  </a>
+
+  <a href="{% url 'physics_electro' %}" class="col text-decoration-none">
+    <div class="card shadow-lg text-center p-3 h-100 hover-card">
+      <h5 class="fw-bold">Electricity & Magnetism</h5>
+      <p class="small text-muted">Electrostatics • Current • AC </p>
+    </div>
+  </a>
+
+  <a href="{% url 'physics_modern' %}" class="col text-decoration-none">
+    <div class="card shadow-lg text-center p-3 h-100 hover-card">
+      <h5 class="fw-bold">Modern Physics</h5>
+      <p class="small text-muted">Photoelectric • Atoms • Semiconductors</p>
+    </div>
+  </a>
+
+  <a href="{% url 'physics_nuclear' %}" class="col text-decoration-none">
+    <div class="card shadow-lg text-center p-3 h-100 hover-card">
+      <h5 class="fw-bold">Nuclear Physics</h5>
+      <p class="small text-muted">Radioactivity • E=mc² • Nuclear reactions</p>
+    </div>
+  </a>
+
+  <a href="{% url 'physics_communication' %}" class="col text-decoration-none">
+    <div class="card shadow-lg text-center p-3 h-100 hover-card">
+      <h5 class="fw-bold">Communication Systems</h5>
+      <p class="small text-muted">EM Waves • Modulation • Devices</p>
+    </div>
+  </a>
+
+</div>
+
+<style>
+.hover-card:hover {
+  background: #0077ff;
+  color: white;
+  transform: scale(1.05);
+  transition: 0.25s;
+}
+</style>
+
+{% endblock %}

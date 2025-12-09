@@ -1,0 +1,49 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h4 class="mb-3">• Maths – Sphere</h4>
+<p class="text-muted">Surface area and volume of a sphere.</p>
+
+{% if error %}
+  <div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+{% if result %}
+  <div class="alert alert-success">{{ result }}</div>
+{% endif %}
+
+<div class="row g-3" style="max-width: 600px;">
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Surface area: SA = 4πr²</div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="sa">
+          <div class="mb-2">
+            <label class="form-label">r</label>
+            <input type="number" step="any" name="r" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate SA</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Volume: V = 4/3 πr³</div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="vol">
+          <div class="mb-2">
+            <label class="form-label">r</label>
+            <input type="number" step="any" name="r" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate V</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

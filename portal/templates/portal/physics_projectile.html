@@ -1,0 +1,37 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h4 class="mb-3">• Physics – Projectile Motion</h4>
+<p class="text-muted">
+  Projectile on level ground with initial speed and launch angle.
+</p>
+
+{% if error %}
+  <div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+{% if result %}
+  <div class="alert alert-success">{{ result }}</div>
+{% endif %}
+
+<div class="card shadow-sm" style="max-width: 520px;">
+  <div class="card-header fw-bold">
+    Inputs: initial speed u and angle θ
+  </div>
+  <div class="card-body">
+    <form method="post">
+      {% csrf_token %}
+      <div class="mb-2">
+        <label class="form-label">u (m/s)</label>
+        <input type="number" step="any" name="u" class="form-control" required>
+      </div>
+      <div class="mb-2">
+        <label class="form-label">θ (degrees)</label>
+        <input type="number" step="any" name="angle" class="form-control" required>
+      </div>
+      <button class="btn btn-primary btn-sm mt-1">
+        Calculate T, R, H
+      </button>
+    </form>
+  </div>
+</div>
+{% endblock %}

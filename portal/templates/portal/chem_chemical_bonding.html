@@ -1,0 +1,37 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h4 class="mb-3">• Chemistry – Chemical Bonding</h4>
+<p class="text-muted">
+  Approximate % ionic character using Pauling electronegativity difference.
+</p>
+
+{% if error %}
+  <div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+{% if result %}
+  <div class="alert alert-success">{{ result }}</div>
+{% endif %}
+
+<div class="card shadow-sm" style="max-width: 520px;">
+  <div class="card-header fw-bold">
+    % Ionic Character ≈ 16(Δχ) + 3.5(Δχ)²
+  </div>
+  <div class="card-body">
+    <form method="post">
+      {% csrf_token %}
+      <div class="mb-2">
+        <label class="form-label">χ(A) – Electronegativity of atom A</label>
+        <input type="number" step="any" name="chiA" class="form-control" required>
+      </div>
+      <div class="mb-2">
+        <label class="form-label">χ(B) – Electronegativity of atom B</label>
+        <input type="number" step="any" name="chiB" class="form-control" required>
+      </div>
+      <button class="btn btn-primary btn-sm mt-1">
+        Calculate % Ionic Character
+      </button>
+    </form>
+  </div>
+</div>
+{% endblock %}

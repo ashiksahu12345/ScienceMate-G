@@ -1,0 +1,64 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h4 class="mb-3">• Maths – Algebra</h4>
+
+{% if error %}
+  <div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+{% if result %}
+  <div class="alert alert-success">{{ result }}</div>
+{% endif %}
+
+<div class="row g-3">
+
+  <!-- Linear -->
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Linear Equation: ax + b = 0</div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="linear">
+          <div class="mb-2">
+            <label class="form-label">a</label>
+            <input type="number" step="any" name="a" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">b</label>
+            <input type="number" step="any" name="b" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Solve</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quadratic -->
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Quadratic: ax² + bx + c = 0</div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="quadratic">
+          <div class="mb-2">
+            <label class="form-label">a</label>
+            <input type="number" step="any" name="a" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">b</label>
+            <input type="number" step="any" name="b" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">c</label>
+            <input type="number" step="any" name="c" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Find Roots</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

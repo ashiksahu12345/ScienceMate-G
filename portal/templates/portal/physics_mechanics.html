@@ -1,0 +1,155 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+
+<h3 class="fw-bold mt-3">Physics – Mechanics</h3>
+<p class="text-muted">
+  Select any chapter from Mechanics to explore its formulas, concepts and (later) calculators.
+</p>
+
+<div class="card shadow-sm p-3 mt-2">
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+
+    <!-- Motion -->
+    <div class="col">
+      <a href="{% url 'physics_mech_motion' %}" class="text-decoration-none">
+        <div class="topic-tile h-100">
+          <h6 class="fw-bold mb-1">Motion in a Straight Line</h6>
+          <p class="small text-muted mb-0">
+            Displacement, velocity, acceleration, equations of motion, graphs.
+          </p>
+        </div>
+      </a>
+    </div>
+
+    <!-- Laws of motion -->
+    <div class="col">
+      <a href="{% url 'physics_mech_laws' %}" class="text-decoration-none">
+        <div class="topic-tile h-100">
+          <h6 class="fw-bold mb-1">Laws of Motion</h6>
+          <p class="small text-muted mb-0">
+            Newton's laws, friction, pseudo force, tension, normal force.
+          </p>
+        </div>
+      </a>
+    </div>
+
+    <!-- Work, Energy, Power -->
+    <div class="col">
+      <a href="{% url 'physics_mech_wep' %}" class="text-decoration-none">
+        <div class="topic-tile h-100">
+          <h6 class="fw-bold mb-1">Work, Energy & Power</h6>
+          <p class="small text-muted mb-0">
+            Work done, KE & PE, power, work-energy theorem, conservative forces.
+          </p>
+        </div>
+      </a>
+    </div>
+
+    <!-- Momentum -->
+    <div class="col">
+      <a href="{% url 'physics_mech_momentum' %}" class="text-decoration-none">
+        <div class="topic-tile h-100">
+          <h6 class="fw-bold mb-1">Momentum & Collisions</h6>
+          <p class="small text-muted mb-0">
+            Linear momentum, impulse, elastic & inelastic collisions.
+          </p>
+        </div>
+      </a>
+    </div>
+
+    <!-- Projectile -->
+    <div class="col">
+      <a href="{% url 'physics_mech_projectile' %}" class="text-decoration-none">
+        <div class="topic-tile h-100">
+          <h6 class="fw-bold mb-1">Projectile Motion</h6>
+          <p class="small text-muted mb-0">
+            Time of flight, range, max height, oblique projection, horizontal projection.
+          </p>
+        </div>
+      </a>
+    </div>
+
+    <!-- Circular motion -->
+    <div class="col">
+      <a href="{% url 'physics_mech_circular' %}" class="text-decoration-none">
+        <div class="topic-tile h-100">
+          <h6 class="fw-bold mb-1">Circular Motion</h6>
+          <p class="small text-muted mb-0">
+            Angular velocity, centripetal force, banking, vertical circle.
+          </p>
+        </div>
+      </a>
+    </div>
+
+    <!-- Gravitation -->
+    <div class="col">
+      <a href="{% url 'physics_mech_gravitation' %}" class="text-decoration-none">
+        <div class="topic-tile h-100">
+          <h6 class="fw-bold mb-1">Gravitation</h6>
+          <p class="small text-muted mb-0">
+            Universal law, g, gravitational potential, satellites, escape velocity.
+          </p>
+        </div>
+      </a>
+    </div>
+
+    <!-- Fluid Mechanics -->
+    <div class="col">
+      <a href="{% url 'physics_mech_fluids' %}" class="text-decoration-none">
+        <div class="topic-tile h-100">
+          <h6 class="fw-bold mb-1">Fluid Mechanics</h6>
+          <p class="small text-muted mb-0">
+            Pressure in fluids, buoyant force, Bernoulli, continuity equation.
+          </p>
+        </div>
+      </a>
+    </div>
+
+    <!-- SHM -->
+    <div class="col">
+      <a href="{% url 'physics_mech_shm' %}" class="text-decoration-none">
+        <div class="topic-tile h-100">
+          <h6 class="fw-bold mb-1">Simple Harmonic Motion</h6>
+          <p class="small text-muted mb-0">
+            Oscillations, time period, energy, spring-mass, pendulum.
+          </p>
+        </div>
+      </a>
+    </div>
+
+    <!-- Elasticity -->
+    <div class="col">
+      <a href="{% url 'physics_mech_elasticity' %}" class="text-decoration-none">
+        <div class="topic-tile h-100">
+          <h6 class="fw-bold mb-1">Elasticity</h6>
+          <p class="small text-muted mb-0">
+            Stress, strain, Young's modulus, bulk & shear modulus.
+          </p>
+        </div>
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<style>
+.topic-tile {
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  padding: 0.9rem 1rem;
+  background: #f9fafb;
+  transition: 0.2s;
+}
+.topic-tile:hover {
+  background: #2563eb;
+  color: #ffffff;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 18px rgba(37,99,235,0.25);
+}
+.topic-tile p {
+  margin-bottom: 0;
+}
+</style>
+
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h4 class="mb-3">• Physics – SHM & Oscillations</h4>
+<p class="text-muted">
+  Time period of spring–mass system and pendulum, plus maximum speed in SHM.
+</p>
+
+{% if error %}
+  <div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+{% if result %}
+  <div class="alert alert-success">{{ result }}</div>
+{% endif %}
+
+<div class="row g-3">
+
+  <!-- Spring–mass -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Spring: T = 2π√(m/k)</div>
+      <div class="card-body">
+        <p class="small text-muted">m in kg, k in N/m.</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="spring_T">
+          <div class="mb-2">
+            <label class="form-label">m (kg)</label>
+            <input type="number" step="any" name="m" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">k (N/m)</label>
+            <input type="number" step="any" name="k" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate T</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pendulum -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Pendulum: T = 2π√(L/g)</div>
+      <div class="card-body">
+        <p class="small text-muted">L in metres, g ≈ 9.8 m/s².</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="pendulum_T">
+          <div class="mb-2">
+            <label class="form-label">L (m)</label>
+            <input type="number" step="any" name="L" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate T</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- v_max -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Max speed: v<sub>max</sub> = (2π/T) A</div>
+      <div class="card-body">
+        <p class="small text-muted">A = amplitude (same units as displacement).</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="vmax">
+          <div class="mb-2">
+            <label class="form-label">Amplitude A</label>
+            <input type="number" step="any" name="A" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Time period T (s)</label>
+            <input type="number" step="any" name="T" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate v<sub>max</sub></button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

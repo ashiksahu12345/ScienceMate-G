@@ -1,0 +1,78 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h4 class="mb-3">• Maths – Geometry (Areas)</h4>
+
+{% if error %}
+  <div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+{% if result %}
+  <div class="alert alert-success">{{ result }}</div>
+{% endif %}
+
+<div class="row g-3">
+
+  <!-- Rectangle -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Rectangle: A = l × b</div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="rect">
+          <div class="mb-2">
+            <label class="form-label">l</label>
+            <input type="number" step="any" name="l" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">b</label>
+            <input type="number" step="any" name="b" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate Area</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Triangle -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Triangle: A = ½ b h</div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="tri">
+          <div class="mb-2">
+            <label class="form-label">b</label>
+            <input type="number" step="any" name="b" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">h</label>
+            <input type="number" step="any" name="h" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate Area</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Circle -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Circle: A = π r²</div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="circle">
+          <div class="mb-2">
+            <label class="form-label">r</label>
+            <input type="number" step="any" name="r" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate Area</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

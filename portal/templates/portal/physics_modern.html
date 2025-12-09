@@ -1,0 +1,80 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h4 class="mb-3">• Physics – Modern Physics</h4>
+<p class="text-muted">
+  Relativistic mass–energy, de Broglie wavelength and simple nuclear energy.
+</p>
+
+{% if error %}
+  <div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+{% if result %}
+  <div class="alert alert-success">{{ result }}</div>
+{% endif %}
+
+<div class="row g-3">
+
+  <!-- E = m c^2 -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Mass–energy: E = m c²</div>
+      <div class="card-body">
+        <p class="small text-muted">m in kg, c ≈ 3×10⁸ m/s.</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="mass_energy">
+          <div class="mb-2">
+            <label class="form-label">m (kg)</label>
+            <input type="number" step="any" name="m" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate E</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- de Broglie -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">λ = h / (m v)</div>
+      <div class="card-body">
+        <p class="small text-muted">m in kg, v in m/s, h ≈ 6.626×10⁻³⁴ J·s.</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="de_broglie">
+          <div class="mb-2">
+            <label class="form-label">m (kg)</label>
+            <input type="number" step="any" name="m" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">v (m/s)</label>
+            <input type="number" step="any" name="v" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate λ</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Nuclear Δm c^2 -->
+  <div class="col-md-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Nuclear: E = Δm c²</div>
+      <div class="card-body">
+        <p class="small text-muted">Δm in kg gives energy released/absorbed.</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="nuclear">
+          <div class="mb-2">
+            <label class="form-label">Δm (kg)</label>
+            <input type="number" step="any" name="dm" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">Calculate E</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h4 class="mb-3">• Chemistry – Solutions</h4>
+<p class="text-muted">
+  Calculate molarity and mass percent of a solution.
+</p>
+
+{% if error %}
+  <div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+{% if result %}
+  <div class="alert alert-success">{{ result }}</div>
+{% endif %}
+
+<div class="row g-3">
+
+  <!-- Molarity -->
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">Molarity: M = n / V</div>
+      <div class="card-body">
+        <p class="small text-muted">
+          n in moles, V in litres (L).
+        </p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="molarity">
+          <div class="mb-2">
+            <label class="form-label">n (moles of solute)</label>
+            <input type="number" step="any" name="n" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">V (L of solution)</label>
+            <input type="number" step="any" name="V" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">
+            Calculate M
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mass percent -->
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-header fw-bold">
+        Mass Percent = (mass solute / total mass) × 100
+      </div>
+      <div class="card-body">
+        <p class="small text-muted">
+          Use gram units for both solute and solvent.
+        </p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="mass_percent">
+          <div class="mb-2">
+            <label class="form-label">Mass of solute (g)</label>
+            <input type="number" step="any" name="ms" class="form-control" required>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Mass of solvent (g)</label>
+            <input type="number" step="any" name="msolvent" class="form-control" required>
+          </div>
+          <button class="btn btn-primary btn-sm mt-1">
+            Calculate Mass %
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

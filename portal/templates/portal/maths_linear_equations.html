@@ -1,0 +1,67 @@
+{% extends "portal/maths_topic_base.html" %}
+
+{% block page_title %}Linear Equations in Two Variables – Mathematics | Science Mate{% endblock %}
+{% block topic_title %}Linear Equations in Two Variables{% endblock %}
+{% block topic_intro %}
+Solve a single linear equation or a pair of equations in two variables.
+{% endblock %}
+
+{% block subtopics %}
+<ul>
+  <li>General form: ax + by + c = 0</li>
+  <li>Solutions as ordered pairs (x, y)</li>
+  <li>Graphical meaning – straight line</li>
+  <li>Consistent / inconsistent / dependent systems</li>
+  <li>Methods: substitution, elimination, cross-multiplication</li>
+</ul>
+{% endblock %}
+
+{% block calc_cards %}
+  <!-- Single linear equation -->
+  <div class="col">
+    <div class="card h-100 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">Calculator 1: y from ax + by + c = 0</h5>
+        <p class="text-muted small">y = (−ax − c) / b</p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="single_linear_y">
+          <div class="row g-1 mb-2">
+            <div class="col-3"><input name="a" type="number" step="any" class="form-control form-control-sm" placeholder="a" required></div>
+            <div class="col-3"><input name="b" type="number" step="any" class="form-control form-control-sm" placeholder="b" required></div>
+            <div class="col-3"><input name="c" type="number" step="any" class="form-control form-control-sm" placeholder="c" required></div>
+            <div class="col-3"><input name="x" type="number" step="any" class="form-control form-control-sm" placeholder="x" required></div>
+          </div>
+          <button type="submit" class="btn btn-sm btn-primary">Find y</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pair of linear equations -->
+  <div class="col">
+    <div class="card h-100 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">Calculator 2: Solve Two Equations</h5>
+        <p class="text-muted small">
+          a₁x + b₁y = c₁, &nbsp; a₂x + b₂y = c₂
+        </p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="pair_linear_2x2">
+          <div class="row g-1 mb-2">
+            <div class="col-4"><input name="a1" type="number" step="any" class="form-control form-control-sm" placeholder="a₁" required></div>
+            <div class="col-4"><input name="b1" type="number" step="any" class="form-control form-control-sm" placeholder="b₁" required></div>
+            <div class="col-4"><input name="c1" type="number" step="any" class="form-control form-control-sm" placeholder="c₁" required></div>
+          </div>
+          <div class="row g-1 mb-2">
+            <div class="col-4"><input name="a2" type="number" step="any" class="form-control form-control-sm" placeholder="a₂" required></div>
+            <div class="col-4"><input name="b2" type="number" step="any" class="form-control form-control-sm" placeholder="b₂" required></div>
+            <div class="col-4"><input name="c2" type="number" step="any" class="form-control form-control-sm" placeholder="c₂" required></div>
+          </div>
+          <button type="submit" class="btn btn-sm btn-primary">Solve (x, y)</button>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

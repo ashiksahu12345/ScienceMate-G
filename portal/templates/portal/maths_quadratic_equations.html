@@ -1,0 +1,59 @@
+{% extends "portal/maths_topic_base.html" %}
+
+{% block page_title %}Quadratic Equations – Mathematics | Science Mate{% endblock %}
+{% block topic_title %}Quadratic Equations{% endblock %}
+{% block topic_intro %}
+Use the discriminant to find roots and nature of roots of ax² + bx + c = 0.
+{% endblock %}
+
+{% block subtopics %}
+<ul>
+  <li>Standard form: ax² + bx + c = 0 (a ≠ 0)</li>
+  <li>Discriminant D = b² − 4ac</li>
+  <li>Roots: x = (−b ± √D) / (2a)</li>
+  <li>Nature of roots from D</li>
+  <li>Graph of quadratic function (parabola)</li>
+</ul>
+{% endblock %}
+
+{% block calc_cards %}
+  <!-- Roots -->
+  <div class="col">
+    <div class="card h-100 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">Calculator 1: Roots &amp; Discriminant</h5>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="quad_roots">
+          <div class="row g-1 mb-2">
+            <div class="col-4"><input name="a" type="number" step="any" class="form-control form-control-sm" placeholder="a" required></div>
+            <div class="col-4"><input name="b" type="number" step="any" class="form-control form-control-sm" placeholder="b" required></div>
+            <div class="col-4"><input name="c" type="number" step="any" class="form-control form-control-sm" placeholder="c" required></div>
+          </div>
+          <button type="submit" class="btn btn-sm btn-primary">Solve</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form equation from roots -->
+  <div class="col">
+    <div class="card h-100 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">Calculator 2: Equation from Roots α, β</h5>
+        <p class="text-muted small">
+          Monic quadratic: x² − (α + β)x + αβ = 0
+        </p>
+        <form method="post">
+          {% csrf_token %}
+          <input type="hidden" name="calc" value="quad_from_roots">
+          <div class="row g-1 mb-2">
+            <div class="col-6"><input name="alpha" type="number" step="any" class="form-control form-control-sm" placeholder="α" required></div>
+            <div class="col-6"><input name="beta" type="number" step="any" class="form-control form-control-sm" placeholder="β" required></div>
+          </div>
+          <button type="submit" class="btn btn-sm btn-primary">Get Equation</button>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

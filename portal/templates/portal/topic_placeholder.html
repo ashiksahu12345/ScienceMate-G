@@ -1,0 +1,498 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+
+{# ================== IF SUBJECT IS MATHS → SHOW 4-PART PAGE ================== #}
+{% if active_subject == "maths" %}
+
+<div class="container my-3">
+  <div class="mb-3 p-3 rounded text-light" style="background:#0f172a;">
+    <h2 class="mb-1">{{ topic_title }}</h2>
+    <p class="mb-0">
+      Subject: <strong>{{ subject_title }}</strong> &nbsp;|&nbsp;
+      This page covers <strong>Maths – Part 1</strong> with multiple subtopics and live calculators.
+    </p>
+  </div>
+
+  {# ================== PART 1: NUMBER SYSTEM & BASIC ARITHMETIC ================== #}
+  <section class="mb-4">
+    <h4 class="mb-2">Part 1 — Number System & Basic Arithmetic</h4>
+    <div class="row row-cols-1 row-cols-md-3 g-3">
+
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Subtopics</h5>
+            <ul class="small mb-0">
+              <li>Types of numbers: N, W, Z, Q, irrational, real</li>
+              <li>Prime factorisation, HCF, LCM</li>
+              <li>Number line, comparison of numbers</li>
+              <li>Basic operations: +, −, ×, ÷</li>
+              <li>Percentage, ratio & proportion</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Calculator 1: Percentage</h5>
+            <p class="text-muted small">
+              Formula: <code>Percentage = (part / whole) × 100</code>
+            </p>
+            <form onsubmit="calcPercentage(); return false;">
+              <div class="mb-2">
+                <label class="form-label small">Part</label>
+                <input type="number" step="any" class="form-control form-control-sm" id="pct-part" required>
+              </div>
+              <div class="mb-2">
+                <label class="form-label small">Whole</label>
+                <input type="number" step="any" class="form-control form-control-sm" id="pct-whole" required>
+              </div>
+              <button type="submit" class="btn btn-sm btn-dark">Calculate</button>
+            </form>
+            <div class="mt-2 small p-2 rounded" id="pct-output" style="background:#eef2ff; min-height:1.2rem;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Calculator 2: Simplify Ratio</h5>
+            <p class="text-muted small">Example: 20 : 30 → 2 : 3</p>
+            <form onsubmit="simplifyRatio(); return false;">
+              <div class="mb-2">
+                <label class="form-label small">First number (a)</label>
+                <input type="number" step="any" class="form-control form-control-sm" id="ratio-a" required>
+              </div>
+              <div class="mb-2">
+                <label class="form-label small">Second number (b)</label>
+                <input type="number" step="any" class="form-control form-control-sm" id="ratio-b" required>
+              </div>
+              <button type="submit" class="btn btn-sm btn-dark">Simplify</button>
+            </form>
+            <div class="mt-2 small p-2 rounded" id="ratio-output" style="background:#eef2ff; min-height:1.2rem;"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  {# ================== PART 2: ALGEBRA (LINEAR / QUADRATIC / AP) ================== #}
+  <section class="mb-4">
+    <h4 class="mb-2">Part 2 — Algebra: Linear, Quadratic & AP</h4>
+    <div class="row row-cols-1 row-cols-md-3 g-3">
+
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Subtopics</h5>
+            <ul class="small mb-0">
+              <li>Linear equation: <code>ax + b = 0</code></li>
+              <li>Quadratic equation: <code>ax² + bx + c = 0</code></li>
+              <li>Discriminant <code>D = b² − 4ac</code></li>
+              <li>Arithmetic Progression (AP)</li>
+              <li>nth term &amp; sum of n terms</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Calculator 3: Linear (ax + b = 0)</h5>
+            <p class="text-muted small">Solution: <code>x = -b / a</code></p>
+            <form onsubmit="solveLinear(); return false;">
+              <div class="mb-2">
+                <label class="form-label small">a</label>
+                <input type="number" step="any" class="form-control form-control-sm" id="lin-a" required>
+              </div>
+              <div class="mb-2">
+                <label class="form-label small">b</label>
+                <input type="number" step="any" class="form-control form-control-sm" id="lin-b" required>
+              </div>
+              <button type="submit" class="btn btn-sm btn-dark">Solve</button>
+            </form>
+            <div class="mt-2 small p-2 rounded" id="lin-output" style="background:#eef2ff; min-height:1.2rem;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Calculator 4: Quadratic & AP</h5>
+
+            <p class="text-muted small mb-1">
+              Quadratic: <code>D = b² - 4ac</code>
+            </p>
+            <form onsubmit="solveQuadratic(); return false;" class="mb-2 border-bottom pb-2">
+              <div class="row g-1">
+                <div class="col-4">
+                  <input type="number" step="any" class="form-control form-control-sm" id="quad-a" placeholder="a" required>
+                </div>
+                <div class="col-4">
+                  <input type="number" step="any" class="form-control form-control-sm" id="quad-b" placeholder="b" required>
+                </div>
+                <div class="col-4">
+                  <input type="number" step="any" class="form-control form-control-sm" id="quad-c" placeholder="c" required>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-sm btn-outline-dark mt-1">Solve Quadratic</button>
+            </form>
+            <div class="small mb-2" id="quad-output" style="min-height:1.2rem;"></div>
+
+            <p class="text-muted small mb-1">
+              AP: <code>aₙ = a + (n−1)d</code>, <code>Sₙ = n/2[2a+(n−1)d]</code>
+            </p>
+            <form onsubmit="calcAP(); return false;">
+              <div class="row g-1">
+                <div class="col-4">
+                  <input type="number" step="any" class="form-control form-control-sm" id="ap-a" placeholder="a" required>
+                </div>
+                <div class="col-4">
+                  <input type="number" step="any" class="form-control form-control-sm" id="ap-d" placeholder="d" required>
+                </div>
+                <div class="col-4">
+                  <input type="number" step="1" min="1" class="form-control form-control-sm" id="ap-n" placeholder="n" required>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-sm btn-outline-dark mt-1">aₙ &amp; Sₙ</button>
+            </form>
+            <div class="small mt-1" id="ap-output" style="min-height:1.2rem;"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  {# ================== PART 3: GEOMETRY & TRIGONOMETRY ================== #}
+  <section class="mb-4">
+    <h4 class="mb-2">Part 3 — Geometry & Trigonometry</h4>
+    <div class="row row-cols-1 row-cols-md-3 g-3">
+
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Subtopics</h5>
+            <ul class="small mb-0">
+              <li>Perimeter &amp; area (rectangle, triangle, circle)</li>
+              <li>Circle: circumference <code>2πr</code>, area <code>πr²</code></li>
+              <li>Pythagoras theorem</li>
+              <li>Trig ratios: sin, cos, tan</li>
+              <li>Heights &amp; distances (applications)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Calculator 5: Circle (Perimeter & Area)</h5>
+            <form onsubmit="calcCircle(); return false;">
+              <div class="mb-2">
+                <label class="form-label small">Radius (r)</label>
+                <input type="number" step="any" class="form-control form-control-sm" id="circle-r" required>
+              </div>
+              <button type="submit" class="btn btn-sm btn-dark">Calculate</button>
+            </form>
+            <div class="mt-2 small p-2 rounded" id="circle-output" style="background:#eef2ff; min-height:1.2rem;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Calculator 6: Right Triangle & Trig</h5>
+            <p class="text-muted small mb-1">Pythagoras: <code>h² = a² + b²</code></p>
+            <form onsubmit="calcHypotenuse(); return false;" class="mb-2 border-bottom pb-2">
+              <div class="row g-1">
+                <div class="col-6">
+                  <input type="number" step="any" class="form-control form-control-sm" id="tri-a" placeholder="a" required>
+                </div>
+                <div class="col-6">
+                  <input type="number" step="any" class="form-control form-control-sm" id="tri-b" placeholder="b" required>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-sm btn-outline-dark mt-1">Hypotenuse</button>
+            </form>
+            <div class="small mb-2" id="tri-output" style="min-height:1.2rem;"></div>
+
+            <p class="text-muted small mb-1">Trig ratios (0°–90°)</p>
+            <form onsubmit="calcTrig(); return false;">
+              <input type="number" step="any" min="0" max="90"
+                     class="form-control form-control-sm mb-1"
+                     id="trig-angle" placeholder="Angle θ in degrees" required>
+              <button type="submit" class="btn btn-sm btn-outline-dark">sin θ, cos θ, tan θ</button>
+            </form>
+            <div class="small mt-1" id="trig-output" style="min-height:1.2rem;"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  {# ================== PART 4: STATISTICS & PROBABILITY ================== #}
+  <section class="mb-4">
+    <h4 class="mb-2">Part 4 — Statistics & Probability</h4>
+    <div class="row row-cols-1 row-cols-md-3 g-3">
+
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Subtopics</h5>
+            <ul class="small mb-0">
+              <li>Mean, median, mode</li>
+              <li>Variance &amp; standard deviation</li>
+              <li>Probability: <code>P(A) = favourable / total</code></li>
+              <li>Complementary event: <code>P(A') = 1 - P(A)</code></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Calculator 7: Mean, Variance, SD</h5>
+            <p class="text-muted small mb-1">
+              Enter numbers separated by commas (e.g. <code>2,4,6,8</code>)
+            </p>
+            <form onsubmit="calcStats(); return false;">
+              <textarea id="stats-data" rows="3"
+                        class="form-control form-control-sm mb-1"
+                        required></textarea>
+              <button type="submit" class="btn btn-sm btn-dark">Calculate</button>
+            </form>
+            <div class="mt-2 small p-2 rounded" id="stats-output" style="background:#eef2ff; min-height:1.2rem;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Calculator 8: Basic Probability</h5>
+            <p class="text-muted small mb-1">
+              <code>P(A) = favourable / total</code>, &nbsp;<code>P(A') = 1 - P(A)</code>
+            </p>
+            <form onsubmit="calcProbability(); return false;">
+              <div class="mb-2">
+                <label class="form-label small">Favourable outcomes</label>
+                <input type="number" step="1" min="0" class="form-control form-control-sm" id="prob-fav" required>
+              </div>
+              <div class="mb-2">
+                <label class="form-label small">Total outcomes</label>
+                <input type="number" step="1" min="1" class="form-control form-control-sm" id="prob-total" required>
+              </div>
+              <button type="submit" class="btn btn-sm btn-dark">Calculate</button>
+            </form>
+            <div class="mt-2 small p-2 rounded" id="prob-output" style="background:#eef2ff; min-height:1.2rem;"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div>
+
+{# ================== INLINE JS FOR MATHS CALCULATORS ================== #}
+<script>
+  function calcPercentage() {
+    const part = parseFloat(document.getElementById('pct-part').value);
+    const whole = parseFloat(document.getElementById('pct-whole').value);
+    const out = document.getElementById('pct-output');
+    if (isNaN(part) || isNaN(whole) || whole === 0) {
+      out.textContent = 'Invalid input. Whole must be non-zero.';
+      return;
+    }
+    const pct = (part / whole) * 100;
+    out.textContent = 'Percentage = ' + pct.toFixed(2) + ' %';
+  }
+
+  function gcd(a, b) {
+    a = Math.abs(a);
+    b = Math.abs(b);
+    while (b) {
+      const t = b;
+      b = a % b;
+      a = t;
+    }
+    return a || 1;
+  }
+
+  function simplifyRatio() {
+    const a = parseFloat(document.getElementById('ratio-a').value);
+    const b = parseFloat(document.getElementById('ratio-b').value);
+    const out = document.getElementById('ratio-output');
+    if (isNaN(a) || isNaN(b) || b === 0) {
+      out.textContent = 'Invalid input. Both numbers required and second ≠ 0.';
+      return;
+    }
+    const g = gcd(a, b);
+    out.textContent = 'Simplified ratio = ' + (a / g) + ' : ' + (b / g);
+  }
+
+  function solveLinear() {
+    const a = parseFloat(document.getElementById('lin-a').value);
+    const b = parseFloat(document.getElementById('lin-b').value);
+    const out = document.getElementById('lin-output');
+    if (isNaN(a) || isNaN(b) || a === 0) {
+      out.textContent = 'Invalid input. a must be non-zero.';
+      return;
+    }
+    const x = -b / a;
+    out.textContent = 'Solution: x = ' + x.toFixed(4);
+  }
+
+  function solveQuadratic() {
+    const a = parseFloat(document.getElementById('quad-a').value);
+    const b = parseFloat(document.getElementById('quad-b').value);
+    const c = parseFloat(document.getElementById('quad-c').value);
+    const out = document.getElementById('quad-output');
+    if (isNaN(a) || isNaN(b) || isNaN(c) || a === 0) {
+      out.textContent = 'Invalid input. a must be non-zero.';
+      return;
+    }
+    const D = b * b - 4 * a * c;
+    if (D > 0) {
+      const x1 = (-b + Math.sqrt(D)) / (2 * a);
+      const x2 = (-b - Math.sqrt(D)) / (2 * a);
+      out.textContent =
+        'D = ' + D.toFixed(4) + ' > 0 → Two real roots: x₁ = ' +
+        x1.toFixed(4) + ', x₂ = ' + x2.toFixed(4);
+    } else if (Math.abs(D) < 1e-12) {
+      const x = -b / (2 * a);
+      out.textContent = 'D = 0 → One real root: x = ' + x.toFixed(4);
+    } else {
+      out.textContent = 'D = ' + D.toFixed(4) + ' < 0 → No real roots.';
+    }
+  }
+
+  function calcAP() {
+    const a = parseFloat(document.getElementById('ap-a').value);
+    const d = parseFloat(document.getElementById('ap-d').value);
+    const n = parseInt(document.getElementById('ap-n').value, 10);
+    const out = document.getElementById('ap-output');
+    if (isNaN(a) || isNaN(d) || isNaN(n) || n <= 0) {
+      out.textContent = 'Invalid input. n must be ≥ 1.';
+      return;
+    }
+    const an = a + (n - 1) * d;
+    const Sn = (n / 2) * (2 * a + (n - 1) * d);
+    out.textContent = 'aₙ = ' + an.toFixed(4) + ', Sₙ = ' + Sn.toFixed(4);
+  }
+
+  function calcCircle() {
+    const r = parseFloat(document.getElementById('circle-r').value);
+    const out = document.getElementById('circle-output');
+    if (isNaN(r) || r < 0) {
+      out.textContent = 'Invalid input. Radius must be ≥ 0.';
+      return;
+    }
+    const peri = 2 * Math.PI * r;
+    const area = Math.PI * r * r;
+    out.textContent =
+      'Perimeter = ' + peri.toFixed(4) + ', Area = ' + area.toFixed(4);
+  }
+
+  function calcHypotenuse() {
+    const a = parseFloat(document.getElementById('tri-a').value);
+    const b = parseFloat(document.getElementById('tri-b').value);
+    const out = document.getElementById('tri-output');
+    if (isNaN(a) || isNaN(b) || a < 0 || b < 0) {
+      out.textContent = 'Invalid input. Sides must be ≥ 0.';
+      return;
+    }
+    const h = Math.sqrt(a * a + b * b);
+    out.textContent = 'Hypotenuse h = ' + h.toFixed(4);
+  }
+
+  function calcTrig() {
+    const angle = parseFloat(document.getElementById('trig-angle').value);
+    const out = document.getElementById('trig-output');
+    if (isNaN(angle) || angle < 0 || angle > 90) {
+      out.textContent = 'Invalid angle. Enter 0°–90°.';
+      return;
+    }
+    const rad = angle * Math.PI / 180;
+    const s = Math.sin(rad);
+    const c = Math.cos(rad);
+    let t;
+    if (Math.abs(c) < 1e-12) {
+      t = 'undefined (cos θ ≈ 0)';
+    } else {
+      t = (s / c).toFixed(4);
+    }
+    out.textContent =
+      'sin θ = ' + s.toFixed(4) +
+      ', cos θ = ' + c.toFixed(4) +
+      ', tan θ = ' + t;
+  }
+
+  function calcStats() {
+    const raw = document.getElementById('stats-data').value;
+    const out = document.getElementById('stats-output');
+    if (!raw.trim()) {
+      out.textContent = 'Please enter some numbers.';
+      return;
+    }
+    const parts = raw.split(',').map(x => x.trim()).filter(x => x !== '');
+    const nums = parts.map(Number).filter(x => !isNaN(x));
+    if (nums.length === 0) {
+      out.textContent = 'No valid numbers found.';
+      return;
+    }
+    const n = nums.length;
+    const mean = nums.reduce((s, x) => s + x, 0) / n;
+    const variance = nums.reduce((s, x) => s + Math.pow(x - mean, 2), 0) / n;
+    const sd = Math.sqrt(variance);
+    out.textContent =
+      'n = ' + n +
+      ', Mean = ' + mean.toFixed(4) +
+      ', Variance = ' + variance.toFixed(4) +
+      ', SD = ' + sd.toFixed(4);
+  }
+
+  function calcProbability() {
+    const fav = parseFloat(document.getElementById('prob-fav').value);
+    const total = parseFloat(document.getElementById('prob-total').value);
+    const out = document.getElementById('prob-output');
+    if (isNaN(fav) || isNaN(total) || total <= 0 || fav < 0 || fav > total) {
+      out.textContent = 'Invalid input. Ensure 0 ≤ favourable ≤ total and total > 0.';
+      return;
+    }
+    const p = fav / total;
+    const pc = 1 - p;
+    out.textContent = 'P(A) = ' + p.toFixed(4) + ', P(A\') = ' + pc.toFixed(4);
+  }
+</script>
+
+{# ================== ELSE: SIMPLE PLACEHOLDER FOR PHYSICS / CHEMISTRY ================== #}
+{% else %}
+
+<div class="container my-3">
+  <h4 class="mb-3">{{ subject_title }} · {{ topic_title }}</h4>
+  <div class="card shadow-sm">
+    <div class="card-body">
+      {% if description %}
+        <p>{{ description }}</p>
+      {% endif %}
+      <p class="text-muted small mb-0">
+        (Detailed calculators / content for this topic will be added in the next parts.)
+      </p>
+    </div>
+  </div>
+</div>
+
+{% endif %}
+
+{% endblock %}

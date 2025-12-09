@@ -1,0 +1,32 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+<h4 class="mb-3">• Maths – Probability</h4>
+
+{% if error %}
+  <div class="alert alert-danger">{{ error }}</div>
+{% endif %}
+{% if result %}
+  <div class="alert alert-success">{{ result }}</div>
+{% endif %}
+
+<div class="card shadow-sm" style="max-width: 460px;">
+  <div class="card-header fw-bold">
+    P(A) = favourable / total,  P(A') = 1 - P(A)
+  </div>
+  <div class="card-body">
+    <form method="post">
+      {% csrf_token %}
+      <div class="mb-2">
+        <label class="form-label">Favourable outcomes</label>
+        <input type="number" step="any" name="fav" class="form-control" required>
+      </div>
+      <div class="mb-2">
+        <label class="form-label">Total outcomes</label>
+        <input type="number" step="any" name="total" class="form-control" required>
+      </div>
+      <button class="btn btn-primary btn-sm mt-1">Calculate P(A)</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

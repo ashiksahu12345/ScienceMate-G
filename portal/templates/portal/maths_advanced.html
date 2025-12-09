@@ -1,0 +1,488 @@
+{% extends "portal/base.html" %}
+
+{% block content %}
+
+<div class="container my-3">
+
+  <!-- HEADER -->
+  <div class="mb-3 p-3 rounded text-light" style="background:#111827;">
+    <h2 class="mb-1">{{ topic_title }}</h2>
+    <p class="mb-0">
+      Subject: <strong>{{ subject_title }}</strong> &nbsp;|&nbsp;
+      Part 2 covers: Relations & Functions, Matrices & Determinants, Calculus,
+      Vectors / 3D / Linear Programming with live mini-calculators.
+    </p>
+  </div>
+
+  {# ================== PART 1: RELATIONS & FUNCTIONS ================== #}
+  <section class="mb-4">
+    <h4 class="mb-2">Part 1 — Relations & Functions</h4>
+    <div class="row row-cols-1 row-cols-md-3 g-3">
+
+      <!-- Subtopics -->
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Subtopics</h5>
+            <ul class="small mb-0">
+              <li>Sets, ordered pairs, Cartesian product</li>
+              <li>Relation as a subset of A × B</li>
+              <li>Function, domain, co-domain, range</li>
+              <li>One-one (injective), onto (surjective), bijective</li>
+              <li>Composite function and inverse function</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Calculator 1: f(x) = ax + b -->
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Calculator 1: Evaluate f(x) = ax + b</h5>
+            <p class="text-muted small mb-1">
+              Simple linear function evaluation.
+            </p>
+            <form onsubmit="calcLinearFunc(); return false;">
+              <div class="row g-1 mb-1">
+                <div class="col-4">
+                  <input id="fun-a" type="number" step="any"
+                         class="form-control form-control-sm" placeholder="a" required>
+                </div>
+                <div class="col-4">
+                  <input id="fun-b" type="number" step="any"
+                         class="form-control form-control-sm" placeholder="b" required>
+                </div>
+                <div class="col-4">
+                  <input id="fun-x" type="number" step="any"
+                         class="form-control form-control-sm" placeholder="x" required>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-sm btn-dark">Evaluate f(x)</button>
+            </form>
+            <div id="fun-output" class="mt-2 small p-2 rounded"
+                 style="background:#eef2ff; min-height:1.2rem;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Calculator 2: Composite g(f(x)) = c(ax + b) + d -->
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Calculator 2: Composite g(f(x))</h5>
+            <p class="text-muted small mb-1">
+              f(x) = ax + b, g(x) = cx + d → g(f(x)) = c(ax + b) + d
+            </p>
+            <form onsubmit="calcCompositeFunc(); return false;">
+              <div class="row g-1 mb-1">
+                <div class="col-3">
+                  <input id="comp-a" type="number" step="any"
+                         class="form-control form-control-sm" placeholder="a" required>
+                </div>
+                <div class="col-3">
+                  <input id="comp-b" type="number" step="any"
+                         class="form-control form-control-sm" placeholder="b" required>
+                </div>
+                <div class="col-3">
+                  <input id="comp-c" type="number" step="any"
+                         class="form-control form-control-sm" placeholder="c" required>
+                </div>
+                <div class="col-3">
+                  <input id="comp-d" type="number" step="any"
+                         class="form-control form-control-sm" placeholder="d" required>
+                </div>
+              </div>
+              <div class="mb-1">
+                <input id="comp-x" type="number" step="any"
+                       class="form-control form-control-sm" placeholder="x" required>
+              </div>
+              <button type="submit" class="btn btn-sm btn-dark">Evaluate g(f(x))</button>
+            </form>
+            <div id="comp-output" class="mt-2 small p-2 rounded"
+                 style="background:#eef2ff; min-height:1.2rem;"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  {# ================== PART 2: MATRICES & DETERMINANTS ================== #}
+  <section class="mb-4">
+    <h4 class="mb-2">Part 2 — Matrices & Determinants</h4>
+    <div class="row row-cols-1 row-cols-md-3 g-3">
+
+      <!-- Subtopics -->
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Subtopics</h5>
+            <ul class="small mb-0">
+              <li>Types of matrices (row, column, square, zero, identity)</li>
+              <li>Matrix addition, subtraction, scalar multiplication</li>
+              <li>Matrix multiplication (basic rules)</li>
+              <li>Determinant of 2×2 and 3×3 matrix</li>
+              <li>Adjoint, inverse of matrix (intro)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Calculator 3: 2x2 determinant -->
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Calculator 3: Det of 2×2 Matrix</h5>
+            <p class="text-muted small mb-1">
+              For matrix ⎡a  b⎤<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⎣c  d⎦ → det = ad − bc
+            </p>
+            <form onsubmit="det2x2(); return false;">
+              <div class="row g-1 mb-1">
+                <div class="col-6">
+                  <input id="m2-a" type="number" step="any" class="form-control form-control-sm" placeholder="a" required>
+                </div>
+                <div class="col-6">
+                  <input id="m2-b" type="number" step="any" class="form-control form-control-sm" placeholder="b" required>
+                </div>
+              </div>
+              <div class="row g-1 mb-1">
+                <div class="col-6">
+                  <input id="m2-c" type="number" step="any" class="form-control form-control-sm" placeholder="c" required>
+                </div>
+                <div class="col-6">
+                  <input id="m2-d" type="number" step="any" class="form-control form-control-sm" placeholder="d" required>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-sm btn-dark">Find det</button>
+            </form>
+            <div id="m2-output" class="mt-2 small p-2 rounded"
+                 style="background:#eef2ff; min-height:1.2rem;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Calculator 4: 3x3 determinant (simple rule of Sarrus) -->
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Calculator 4: Det of 3×3 Matrix</h5>
+            <p class="text-muted small mb-1">
+              Uses basic formula for 3×3 determinant.
+            </p>
+            <form onsubmit="det3x3(); return false;">
+              <div class="row g-1 mb-1">
+                <div class="col-4"><input id="m3-a11" type="number" step="any" class="form-control form-control-sm" placeholder="a11" required></div>
+                <div class="col-4"><input id="m3-a12" type="number" step="any" class="form-control form-control-sm" placeholder="a12" required></div>
+                <div class="col-4"><input id="m3-a13" type="number" step="any" class="form-control form-control-sm" placeholder="a13" required></div>
+              </div>
+              <div class="row g-1 mb-1">
+                <div class="col-4"><input id="m3-a21" type="number" step="any" class="form-control form-control-sm" placeholder="a21" required></div>
+                <div class="col-4"><input id="m3-a22" type="number" step="any" class="form-control form-control-sm" placeholder="a22" required></div>
+                <div class="col-4"><input id="m3-a23" type="number" step="any" class="form-control form-control-sm" placeholder="a23" required></div>
+              </div>
+              <div class="row g-1 mb-1">
+                <div class="col-4"><input id="m3-a31" type="number" step="any" class="form-control form-control-sm" placeholder="a31" required></div>
+                <div class="col-4"><input id="m3-a32" type="number" step="any" class="form-control form-control-sm" placeholder="a32" required></div>
+                <div class="col-4"><input id="m3-a33" type="number" step="any" class="form-control form-control-sm" placeholder="a33" required></div>
+              </div>
+              <button type="submit" class="btn btn-sm btn-dark">Find det</button>
+            </form>
+            <div id="m3-output" class="mt-2 small p-2 rounded"
+                 style="background:#eef2ff; min-height:1.2rem;"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  {# ================== PART 3: CALCULUS (LIMITS & DERIVATIVES) ================== #}
+  <section class="mb-4">
+    <h4 class="mb-2">Part 3 — Calculus: Limits & Derivatives</h4>
+    <div class="row row-cols-1 row-cols-md-3 g-3">
+
+      <!-- Subtopics -->
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Subtopics</h5>
+            <ul class="small mb-0">
+              <li>Intuitive idea of limit</li>
+              <li>Standard limits: x→0 of sin x/x, (1 − cos x)/x² etc.</li>
+              <li>Derivative as rate of change, slope of tangent</li>
+              <li>Derivatives of xⁿ, sin x, cos x, eˣ, ln x (basic)</li>
+              <li>Product, quotient, chain rule (intro)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Calculator 5: Derivative of kx^n at x0 -->
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Calculator 5: d/dx (k xⁿ) at x₀</h5>
+            <p class="text-muted small mb-1">
+              For f(x) = k xⁿ ⇒ f'(x) = k·n·xⁿ⁻¹
+            </p>
+            <form onsubmit="derivativePower(); return false;">
+              <div class="row g-1 mb-1">
+                <div class="col-4">
+                  <input id="der-k" type="number" step="any" class="form-control form-control-sm" placeholder="k" required>
+                </div>
+                <div class="col-4">
+                  <input id="der-n" type="number" step="any" class="form-control form-control-sm" placeholder="n" required>
+                </div>
+                <div class="col-4">
+                  <input id="der-x0" type="number" step="any" class="form-control form-control-sm" placeholder="x₀" required>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-sm btn-dark">Find f'(x₀)</button>
+            </form>
+            <div id="der-output" class="mt-2 small p-2 rounded"
+                 style="background:#eef2ff; min-height:1.2rem;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Calculator 6: Slope of Secant line -->
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Calculator 6: Slope of Secant (Average Rate)</h5>
+            <p class="text-muted small mb-1">
+              Slope = (f(x₂) − f(x₁)) / (x₂ − x₁) for f(x) = kx² + m
+            </p>
+            <form onsubmit="secantSlope(); return false;">
+              <div class="row g-1 mb-1">
+                <div class="col-4">
+                  <input id="sec-k" type="number" step="any" class="form-control form-control-sm" placeholder="k" required>
+                </div>
+                <div class="col-4">
+                  <input id="sec-m" type="number" step="any" class="form-control form-control-sm" placeholder="m" required>
+                </div>
+              </div>
+              <div class="row g-1 mb-1">
+                <div class="col-6">
+                  <input id="sec-x1" type="number" step="any" class="form-control form-control-sm" placeholder="x₁" required>
+                </div>
+                <div class="col-6">
+                  <input id="sec-x2" type="number" step="any" class="form-control form-control-sm" placeholder="x₂" required>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-sm btn-dark">Calculate slope</button>
+            </form>
+            <div id="sec-output" class="mt-2 small p-2 rounded"
+                 style="background:#eef2ff; min-height:1.2rem;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {# ================== PART 4: INTEGRALS, VECTORS, 3D, LPP ================== #}
+  <section class="mb-4">
+    <h4 class="mb-2">Part 4 — Integrals, Vectors, 3D Geometry & LPP</h4>
+    <div class="row row-cols-1 row-cols-md-3 g-3">
+
+      <!-- Subtopics overview -->
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Subtopics</h5>
+            <ul class="small mb-0">
+              <li>Indefinite integral as reverse of derivative</li>
+              <li>Basic formulas: ∫xⁿ dx, ∫eˣ dx, ∫1/x dx</li>
+              <li>Area under curve using definite integrals</li>
+              <li>Vectors: magnitude, direction, dot product (intro)</li>
+              <li>3D: distance, direction ratios & cosines, line & plane (basic)</li>
+              <li>Linear Programming: objective function, constraints, feasible region</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Calculator 7: ∫ (k x^n) dx -->
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Calculator 7: Indefinite Integral of kxⁿ</h5>
+            <p class="text-muted small mb-1">
+              For n ≠ −1: ∫k xⁿ dx = k · xⁿ⁺¹ / (n + 1) + C
+            </p>
+            <form onsubmit="integralPower(); return false;">
+              <div class="row g-1 mb-1">
+                <div class="col-6">
+                  <input id="int-k" type="number" step="any" class="form-control form-control-sm" placeholder="k" required>
+                </div>
+                <div class="col-6">
+                  <input id="int-n" type="number" step="any" class="form-control form-control-sm" placeholder="n" required>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-sm btn-dark">Show result</button>
+            </form>
+            <div id="int-output" class="mt-2 small p-2 rounded"
+                 style="background:#eef2ff; min-height:1.6rem; white-space:pre-wrap;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Calculator 8: Vector magnitude & distance in 3D -->
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Calculator 8: Vector & 3D Distance</h5>
+            <p class="text-muted small mb-1">
+              Vector <strong>v</strong> = (x, y, z) → |v| = √(x² + y² + z²)<br>
+              Distance between P(x₁,y₁,z₁) and Q(x₂,y₂,z₂)
+            </p>
+            <form onsubmit="vector3D(); return false;">
+              <div class="row g-1 mb-1">
+                <div class="col-4"><input id="vec-x" type="number" step="any" class="form-control form-control-sm" placeholder="x" required></div>
+                <div class="col-4"><input id="vec-y" type="number" step="any" class="form-control form-control-sm" placeholder="y" required></div>
+                <div class="col-4"><input id="vec-z" type="number" step="any" class="form-control form-control-sm" placeholder="z" required></div>
+              </div>
+              <p class="text-muted small mb-1">3D points P and Q:</p>
+              <div class="row g-1 mb-1">
+                <div class="col-4"><input id="p-x" type="number" step="any" class="form-control form-control-sm" placeholder="x₁"></div>
+                <div class="col-4"><input id="p-y" type="number" step="any" class="form-control form-control-sm" placeholder="y₁"></div>
+                <div class="col-4"><input id="p-z" type="number" step="any" class="form-control form-control-sm" placeholder="z₁"></div>
+              </div>
+              <div class="row g-1 mb-1">
+                <div class="col-4"><input id="q-x" type="number" step="any" class="form-control form-control-sm" placeholder="x₂"></div>
+                <div class="col-4"><input id="q-y" type="number" step="any" class="form-control form-control-sm" placeholder="y₂"></div>
+                <div class="col-4"><input id="q-z" type="number" step="any" class="form-control form-control-sm" placeholder="z₂"></div>
+              </div>
+              <button type="submit" class="btn btn-sm btn-dark">Calculate</button>
+            </form>
+            <div id="vec-output" class="mt-2 small p-2 rounded"
+                 style="background:#eef2ff; min-height:1.6rem; white-space:pre-wrap;"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div>
+
+{# ================== INLINE JS ================== #}
+<script>
+  function num(v){ return parseFloat(v); }
+
+  function calcLinearFunc() {
+    const a = num(document.getElementById('fun-a').value);
+    const b = num(document.getElementById('fun-b').value);
+    const x = num(document.getElementById('fun-x').value);
+    const out = document.getElementById('fun-output');
+    if ([a,b,x].some(isNaN)) { out.textContent = 'Enter valid numbers.'; return; }
+    const fx = a * x + b;
+    out.textContent = 'f(x) = ' + fx.toFixed(4);
+  }
+
+  function calcCompositeFunc() {
+    const a = num(document.getElementById('comp-a').value);
+    const b = num(document.getElementById('comp-b').value);
+    const c = num(document.getElementById('comp-c').value);
+    const d = num(document.getElementById('comp-d').value);
+    const x = num(document.getElementById('comp-x').value);
+    const out = document.getElementById('comp-output');
+    if ([a,b,c,d,x].some(isNaN)) { out.textContent = 'Enter all coefficients and x.'; return; }
+    const fx = a * x + b;
+    const gx = c * fx + d;
+    out.textContent = 'f(x) = ' + fx.toFixed(4) + ', g(f(x)) = ' + gx.toFixed(4);
+  }
+
+  function det2x2() {
+    const a = num(document.getElementById('m2-a').value);
+    const b = num(document.getElementById('m2-b').value);
+    const c = num(document.getElementById('m2-c').value);
+    const d = num(document.getElementById('m2-d').value);
+    const out = document.getElementById('m2-output');
+    if ([a,b,c,d].some(isNaN)) { out.textContent = 'Fill all four entries.'; return; }
+    const det = a * d - b * c;
+    out.textContent = 'det(A) = ' + det.toFixed(4);
+  }
+
+  function det3x3() {
+    const ids = ['a11','a12','a13','a21','a22','a23','a31','a32','a33'].map(id=> 'm3-' + id);
+    const vals = ids.map(id => num(document.getElementById(id).value));
+    const out = document.getElementById('m3-output');
+    if (vals.some(isNaN)) { out.textContent = 'Fill all 9 entries.'; return; }
+    const [a11,a12,a13,a21,a22,a23,a31,a32,a33] = vals;
+    const det =
+      a11*(a22*a33 - a23*a32) -
+      a12*(a21*a33 - a23*a31) +
+      a13*(a21*a32 - a22*a31);
+    out.textContent = 'det(A) = ' + det.toFixed(4);
+  }
+
+  function derivativePower() {
+    const k = num(document.getElementById('der-k').value);
+    const n = num(document.getElementById('der-n').value);
+    const x0 = num(document.getElementById('der-x0').value);
+    const out = document.getElementById('der-output');
+    if ([k,n,x0].some(isNaN)) { out.textContent = 'Enter k, n and x₀.'; return; }
+    const val = k * n * Math.pow(x0, n - 1);
+    out.textContent = "f'(x₀) = " + val.toFixed(4);
+  }
+
+  function secantSlope() {
+    const k = num(document.getElementById('sec-k').value);
+    const m = num(document.getElementById('sec-m').value);
+    const x1 = num(document.getElementById('sec-x1').value);
+    const x2 = num(document.getElementById('sec-x2').value);
+    const out = document.getElementById('sec-output');
+    if ([k,m,x1,x2].some(isNaN) || x1 === x2) {
+      out.textContent = 'Enter valid k,m,x₁,x₂ with x₁ ≠ x₂.'; return;
+    }
+    const f1 = k*x1*x1 + m;
+    const f2 = k*x2*x2 + m;
+    const slope = (f2 - f1) / (x2 - x1);
+    out.textContent = 'Slope of secant = ' + slope.toFixed(4);
+  }
+
+  function integralPower() {
+    const k = num(document.getElementById('int-k').value);
+    const n = num(document.getElementById('int-n').value);
+    const out = document.getElementById('int-output');
+    if ([k,n].some(isNaN)) { out.textContent = 'Enter k and n.'; return; }
+    if (Math.abs(n + 1) < 1e-12) {
+      out.textContent = 'For n = -1 → ∫k x⁻¹ dx = k ln|x| + C';
+      return;
+    }
+    out.textContent =
+      '∫ k xⁿ dx = ' + k + ' · x^(' + (n + 1) + ') / ' + (n + 1) + ' + C';
+  }
+
+  function vector3D() {
+    const vx = num(document.getElementById('vec-x').value);
+    const vy = num(document.getElementById('vec-y').value);
+    const vz = num(document.getElementById('vec-z').value);
+    const px = num(document.getElementById('p-x').value);
+    const py = num(document.getElementById('p-y').value);
+    const pz = num(document.getElementById('p-z').value);
+    const qx = num(document.getElementById('q-x').value);
+    const qy = num(document.getElementById('q-y').value);
+    const qz = num(document.getElementById('q-z').value);
+    const out = document.getElementById('vec-output');
+
+    if ([vx,vy,vz].some(isNaN)) {
+      out.textContent = 'Enter vector components x, y, z.'; return;
+    }
+    const mag = Math.sqrt(vx*vx + vy*vy + vz*vz);
+    let text = '|v| = ' + mag.toFixed(4);
+
+    if (![px,py,pz,qx,qy,qz].some(isNaN)) {
+      const dx = qx - px, dy = qy - py, dz = qz - pz;
+      const dist = Math.sqrt(dx*dx + dy*dy + dz*dz);
+      text += '\nDistance PQ = ' + dist.toFixed(4);
+    } else {
+      text += '\n(Enter P & Q to also get distance in 3D.)';
+    }
+    out.textContent = text;
+  }
+</script>
+
+{% endblock %}
